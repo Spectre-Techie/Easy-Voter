@@ -1,0 +1,116 @@
+// This is your Prisma schema file for EasyVoter
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+// User model - handles authentication for both voters and admins
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  role          Role     @default(VOTER)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  application   VoterApplication?
+  approvedApplications VoterApplication[] @relation("ApprovedBy")
+  auditLogs     AuditLog[]
+  
+  @@index([email])
+}
+
+enum Role {
+  VOTER
+  ADMIN
+  SUPER_ADMIN
+}
+
+// Voter Application model - stores all registration data
+model VoterApplication {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Personal Information
+  firstName       String
+  lastName        String
+  middleName      String?
+  dateOfBirth     DateTime
+  gender          Gender
+  
+  // Contact Information
+  email           String
+  phoneNumber     String
+  address         String
+  city            String
+  state           String
+  zipCode         String
+  
+  // Document Upload
+  idPhotoUrl      String
+  idPhotoKey      String   // Storage key for deletion/management
+  
+  // Application Status & Review
+  status          ApplicationStatus @default(PENDING)
+  reviewNotes     String?
+  reviewedById    String?
+  reviewedBy      User?    @relation("ApprovedBy", fields: [reviewedById], references: [id])
+  reviewedAt      DateTime?
+  
+  // Voter Card Information
+  voterCardId     String?  @unique
+  voterCardPdfUrl String?
+  voterCardPdfKey String?
+  
+  // Timestamps
+  submittedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Indexes for performance optimization
+  @@index([status])
+  @@index([createdAt])
+  @@index([userId])
+  @@index([voterCardId])
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+  PREFER_NOT_TO_SAY
+}
+
+enum ApplicationStatus {
+  DRAFT         // User started but hasn't submitted
+  PENDING       // Submitted, awaiting review
+  APPROVED      // Approved by admin
+  REJECTED      // Rejected by admin
+}
+
+// Audit Log model - tracks all important actions for security
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action      String   // e.g., "APPROVED_APPLICATION", "REJECTED_APPLICATION"
+  entityType  String   // e.g., "VoterApplication", "User"
+  entityId    String
+  metadata    Json?    // Additional context as JSON
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+  
+  @@index([userId])
+  @@index([entityId])
+  @@index([createdAt])
+}
