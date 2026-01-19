@@ -19,10 +19,7 @@ const {
   skip,
   Decimal,
   Debug,
-  DbNull,
-  JsonNull,
-  AnyNull,
-  NullTypes,
+  objectEnumValues,
   makeStrictEnum,
   Extensions,
   warnOnce,
@@ -30,7 +27,7 @@ const {
   Public,
   getRuntime,
   createParam,
-} = require('./runtime/client.js')
+} = require('./runtime/wasm-engine-edge.js')
 
 
 const Prisma = {}
@@ -39,12 +36,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.2.0
- * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
+ * Prisma Client JS version: 6.19.2
+ * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
  */
 Prisma.prismaVersion = {
-  client: "7.2.0",
-  engine: "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3"
+  client: "6.19.2",
+  engine: "c2990dca591cba766e3b7ef5d9e8a84796e47ab7"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -72,16 +69,19 @@ Prisma.defineExtension = Extensions.defineExtension
 /**
  * Shorthand utilities for JSON filtering
  */
-Prisma.DbNull = DbNull
-Prisma.JsonNull = JsonNull
-Prisma.AnyNull = AnyNull
+Prisma.DbNull = objectEnumValues.instances.DbNull
+Prisma.JsonNull = objectEnumValues.instances.JsonNull
+Prisma.AnyNull = objectEnumValues.instances.AnyNull
 
-Prisma.NullTypes = NullTypes
+Prisma.NullTypes = {
+  DbNull: objectEnumValues.classes.DbNull,
+  JsonNull: objectEnumValues.classes.JsonNull,
+  AnyNull: objectEnumValues.classes.AnyNull
+}
 
 
 
 
-  const path = require('path')
 
 /**
  * Enums
@@ -198,26 +198,78 @@ exports.Prisma.ModelName = {
  * Create the Client
  */
 const config = {
-  "previewFeatures": [],
-  "clientVersion": "7.2.0",
-  "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
+  "generator": {
+    "name": "client",
+    "provider": {
+      "fromEnvVar": null,
+      "value": "prisma-client-js"
+    },
+    "output": {
+      "value": "C:\\Users\\LENOVO\\easyvoter\\prisma\\generated\\client",
+      "fromEnvVar": null
+    },
+    "config": {
+      "engineType": "binary"
+    },
+    "binaryTargets": [
+      {
+        "fromEnvVar": null,
+        "value": "windows",
+        "native": true
+      }
+    ],
+    "previewFeatures": [],
+    "sourceFilePath": "C:\\Users\\LENOVO\\easyvoter\\prisma\\schema.prisma",
+    "isCustomOutput": true
+  },
+  "relativeEnvPaths": {
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
+  },
+  "relativePath": "../..",
+  "clientVersion": "6.19.2",
+  "engineVersion": "c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
+  "datasourceNames": [
+    "db"
+  ],
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file for EasyVoter\n// Learn more: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider   = \"prisma-client-js\"\n  output     = \"./generated/client\"\n  engineType = \"binary\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\n// User model - handles authentication for both voters and admins\nmodel User {\n  id           String   @id @default(cuid())\n  email        String   @unique\n  passwordHash String\n  role         Role     @default(VOTER)\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  // Password reset fields\n  resetToken       String? // Token for password reset\n  resetTokenExpiry DateTime? // Token expiration time\n\n  // Relations\n  application          VoterApplication?\n  approvedApplications VoterApplication[] @relation(\"ApprovedBy\")\n  auditLogs            AuditLog[]\n\n  @@index([email])\n  @@index([resetToken])\n}\n\nenum Role {\n  VOTER\n  ADMIN\n  SUPER_ADMIN\n}\n\n// Voter Application model - stores all registration data\nmodel VoterApplication {\n  id     String @id @default(cuid())\n  userId String @unique\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  // Personal Information\n  firstName   String\n  lastName    String\n  middleName  String?\n  dateOfBirth DateTime\n  gender      Gender\n\n  // Contact Information\n  email       String\n  phoneNumber String\n  address     String\n  city        String\n  state       String\n  zipCode     String\n\n  // Document Upload\n  idPhotoUrl String\n  idPhotoKey String // Storage key for deletion/management\n\n  // Application Status & Review\n  status       ApplicationStatus @default(PENDING)\n  reviewNotes  String?\n  reviewedById String?\n  reviewedBy   User?             @relation(\"ApprovedBy\", fields: [reviewedById], references: [id])\n  reviewedAt   DateTime?\n\n  // Voter Card Information\n  voterCardId     String? @unique\n  voterCardPdfUrl String?\n  voterCardPdfKey String?\n\n  // Timestamps\n  submittedAt DateTime?\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n\n  // Indexes for performance optimization\n  @@index([status])\n  @@index([createdAt])\n  @@index([userId])\n  @@index([voterCardId])\n}\n\nenum Gender {\n  MALE\n  FEMALE\n  OTHER\n  PREFER_NOT_TO_SAY\n}\n\nenum ApplicationStatus {\n  DRAFT // User started but hasn't submitted\n  PENDING // Submitted, awaiting review\n  APPROVED // Approved by admin\n  REJECTED // Rejected by admin\n}\n\n// Audit Log model - tracks all important actions for security\nmodel AuditLog {\n  id         String   @id @default(cuid())\n  userId     String\n  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  action     String // e.g., \"APPROVED_APPLICATION\", \"REJECTED_APPLICATION\"\n  entityType String // e.g., \"VoterApplication\", \"User\"\n  entityId   String\n  metadata   Json? // Additional context as JSON\n  ipAddress  String?\n  userAgent  String?\n  createdAt  DateTime @default(now())\n\n  @@index([userId])\n  @@index([entityId])\n  @@index([createdAt])\n}\n"
+  "inlineDatasources": {
+    "db": {
+      "url": {
+        "fromEnvVar": "DATABASE_URL",
+        "value": null
+      }
+    }
+  },
+  "inlineSchema": "// This is your Prisma schema file for EasyVoter\n// Learn more: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider   = \"prisma-client-js\"\n  output     = \"./generated/client\"\n  engineType = \"binary\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  // url and directUrl removed - now in prisma.config.ts\n  url      = env(\"DATABASE_URL\")\n}\n\n// User model - handles authentication for both voters and admins\nmodel User {\n  id           String   @id @default(cuid())\n  email        String   @unique\n  passwordHash String\n  role         Role     @default(VOTER)\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  // Password reset fields\n  resetToken       String? // Token for password reset\n  resetTokenExpiry DateTime? // Token expiration time\n\n  // Relations\n  application          VoterApplication?\n  approvedApplications VoterApplication[] @relation(\"ApprovedBy\")\n  auditLogs            AuditLog[]\n\n  @@index([email])\n  @@index([resetToken])\n}\n\nenum Role {\n  VOTER\n  ADMIN\n  SUPER_ADMIN\n}\n\n// Voter Application model - stores all registration data\nmodel VoterApplication {\n  id     String @id @default(cuid())\n  userId String @unique\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  // Personal Information\n  firstName   String\n  lastName    String\n  middleName  String?\n  dateOfBirth DateTime\n  gender      Gender\n\n  // Contact Information\n  email       String\n  phoneNumber String\n  address     String\n  city        String\n  state       String\n  zipCode     String\n\n  // Document Upload\n  idPhotoUrl String\n  idPhotoKey String // Storage key for deletion/management\n\n  // Application Status & Review\n  status       ApplicationStatus @default(PENDING)\n  reviewNotes  String?\n  reviewedById String?\n  reviewedBy   User?             @relation(\"ApprovedBy\", fields: [reviewedById], references: [id])\n  reviewedAt   DateTime?\n\n  // Voter Card Information\n  voterCardId     String? @unique\n  voterCardPdfUrl String?\n  voterCardPdfKey String?\n\n  // Timestamps\n  submittedAt DateTime?\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n\n  // Indexes for performance optimization\n  @@index([status])\n  @@index([createdAt])\n  @@index([userId])\n  @@index([voterCardId])\n}\n\nenum Gender {\n  MALE\n  FEMALE\n  OTHER\n  PREFER_NOT_TO_SAY\n}\n\nenum ApplicationStatus {\n  DRAFT // User started but hasn't submitted\n  PENDING // Submitted, awaiting review\n  APPROVED // Approved by admin\n  REJECTED // Rejected by admin\n}\n\n// Audit Log model - tracks all important actions for security\nmodel AuditLog {\n  id         String   @id @default(cuid())\n  userId     String\n  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  action     String // e.g., \"APPROVED_APPLICATION\", \"REJECTED_APPLICATION\"\n  entityType String // e.g., \"VoterApplication\", \"User\"\n  entityId   String\n  metadata   Json? // Additional context as JSON\n  ipAddress  String?\n  userAgent  String?\n  createdAt  DateTime @default(now())\n\n  @@index([userId])\n  @@index([entityId])\n  @@index([createdAt])\n}\n",
+  "inlineSchemaHash": "7230a9b1fa05763307179efcbc064e38ca475e2df8976c855a0ab3b1c2f8fd24",
+  "copyEngine": true
 }
+config.dirname = '/'
 
 config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"passwordHash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"resetToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"resetTokenExpiry\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"application\",\"kind\":\"object\",\"type\":\"VoterApplication\",\"relationName\":\"UserToVoterApplication\"},{\"name\":\"approvedApplications\",\"kind\":\"object\",\"type\":\"VoterApplication\",\"relationName\":\"ApprovedBy\"},{\"name\":\"auditLogs\",\"kind\":\"object\",\"type\":\"AuditLog\",\"relationName\":\"AuditLogToUser\"}],\"dbName\":null},\"VoterApplication\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToVoterApplication\"},{\"name\":\"firstName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"middleName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dateOfBirth\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"gender\",\"kind\":\"enum\",\"type\":\"Gender\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"city\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"zipCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"idPhotoUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"idPhotoKey\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ApplicationStatus\"},{\"name\":\"reviewNotes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"reviewedById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"reviewedBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ApprovedBy\"},{\"name\":\"reviewedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"voterCardId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"voterCardPdfUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"voterCardPdfKey\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"submittedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"AuditLog\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AuditLogToUser\"},{\"name\":\"action\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"entityType\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"entityId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"metadata\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
-config.compilerWasm = {
-      getRuntime: async () => require('./query_compiler_bg.js'),
-      getQueryCompilerWasmModule: async () => {
-        const { Buffer } = require('node:buffer')
-        const { wasm } = require('./query_compiler_bg.wasm-base64.js')
-        const queryCompilerWasmFileBytes = Buffer.from(wasm, 'base64')
+config.engineWasm = {
+  getRuntime: async () => require('./query_engine_bg.js'),
+  getQueryEngineWasmModule: async () => {
+    const loader = (await import('#wasm-engine-loader')).default
+    const engine = (await loader).default
+    return engine
+  }
+}
+config.compilerWasm = undefined
 
-        return new WebAssembly.Module(queryCompilerWasmFileBytes)
-      }
-    }
+config.injectableEdgeEnv = () => ({
+  parsed: {
+    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
+  }
+})
+
+if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {
+  Debug.enable(typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined)
+}
 
 const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
+

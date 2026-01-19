@@ -9,7 +9,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // url and directUrl removed - now in prisma.config.ts
+ 
 }
 
 // User model - handles authentication for both voters and admins
@@ -21,12 +21,17 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   
+  // Password reset fields
+  resetToken        String?   // Token for password reset
+  resetTokenExpiry  DateTime? // Token expiration time
+  
   // Relations
   application   VoterApplication?
   approvedApplications VoterApplication[] @relation("ApprovedBy")
   auditLogs     AuditLog[]
   
   @@index([email])
+  @@index([resetToken])
 }
 
 enum Role {

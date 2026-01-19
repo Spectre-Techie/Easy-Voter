@@ -26,6 +26,7 @@ export default function LoginPage() {
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
     const registered = searchParams.get("registered")
+    const resetSuccess = searchParams.get("reset")
 
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
@@ -80,6 +81,15 @@ export default function LoginPage() {
                             <CheckCircle2 className="h-4 w-4 text-green-600" />
                             <AlertDescription className="text-green-600">
                                 Account created successfully! Please sign in.
+                            </AlertDescription>
+                        </Alert>
+                    )}
+
+                    {resetSuccess && (
+                        <Alert className="mb-4 border-green-500 bg-green-50">
+                            <CheckCircle2 className="h-4 w-4 text-green-600" />
+                            <AlertDescription className="text-green-600">
+                                Password reset successfully! You can now sign in with your new password.
                             </AlertDescription>
                         </Alert>
                     )}

@@ -141,6 +141,8 @@ export const applicationFilterSchema = z.object({
 
 export type RegisterInput = z.infer<typeof registerSchema>
 export type LoginInput = z.infer<typeof loginSchema>
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>
+export type UpdatePasswordInput = z.infer<typeof updatePasswordSchema>
 export type PersonalInfoInput = z.infer<typeof personalInfoSchema>
 export type ContactDetailsInput = z.infer<typeof contactDetailsSchema>
 export type DocumentUploadInput = z.infer<typeof documentUploadSchema>
