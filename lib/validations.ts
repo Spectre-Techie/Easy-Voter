@@ -17,6 +17,16 @@ export const registerSchema = z.object({
     path: ["confirmPassword"],
 })
 
+// Server-side schema for API (confirmPassword is validated on client)
+export const registerApiSchema = z.object({
+    email: z.string().email("Invalid email address"),
+    password: z
+        .string()
+        .min(8, "Password must be at least 8 characters")
+        .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .regex(/[0-9]/, "Password must contain at least one number"),
+})
+
 export const loginSchema = z.object({
     email: z.string().email("Invalid email address"),
     password: z.string().min(1, "Password is required"),
@@ -47,11 +57,9 @@ export const personalInfoSchema = z.object({
     firstName: z.string().min(2, "First name must be at least 2 characters"),
     lastName: z.string().min(2, "Last name must be at least 2 characters"),
     middleName: z.string().optional(),
-    dateOfBirth: z.date({
-        required_error: "Date of birth is required",
-    }),
+    dateOfBirth: z.date({ message: "Date of birth is required" }),
     gender: z.enum(["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"], {
-        required_error: "Please select a gender",
+        message: "Please select a gender",
     }),
 }).refine((data) => {
     // Must be 18 or older
