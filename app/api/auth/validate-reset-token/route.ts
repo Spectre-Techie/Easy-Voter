@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/db"
+import { db } from "@/lib/db"
 
 /**
  * GET /api/auth/validate-reset-token
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
         }
 
         // Find user with valid token
-        const user = await prisma.user.findFirst({
+        const user = await db.user.findFirst({
             where: {
                 resetToken: token,
                 resetTokenExpiry: {

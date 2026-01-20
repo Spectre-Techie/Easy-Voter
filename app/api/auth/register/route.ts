@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/db"
+import { db } from "@/lib/db"
 import { hashPassword } from "@/lib/password"
 import { registerApiSchema } from "@/lib/validations"
 import { z } from "zod"
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         const validatedData = registerApiSchema.parse(body)
 
         // Check if user already exists
-        const existingUser = await prisma.user.findUnique({
+        const existingUser = await db.user.findUnique({
             where: {
                 email: validatedData.email,
             },
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
         const passwordHash = await hashPassword(validatedData.password)
 
         // Create user
-        const user = await prisma.user.create({
+        const user = await db.user.create({
             data: {
                 email: validatedData.email,
                 passwordHash,

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/db"
+import { db } from "@/lib/db"
 import { resetPasswordSchema } from "@/lib/validations"
 import { z } from "zod"
 import crypto from "crypto"
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         const validatedData = resetPasswordSchema.parse(body)
 
         // Find user by email
-        const user = await prisma.user.findUnique({
+        const user = await db.user.findUnique({
             where: {
                 email: validatedData.email,
             },
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
         const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000) // 1 hour from now
 
         // Save token to database
-        await prisma.user.update({
+        await db.user.update({
             where: { id: user.id },
             data: {
                 resetToken,

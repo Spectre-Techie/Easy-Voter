@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
-import { prisma } from "@/lib/db"
+import { db } from "@/lib/db"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -16,7 +16,7 @@ export default async function DashboardPage() {
     }
 
     // Get user's application if it exists
-    const application = await prisma.voterApplication.findUnique({
+    const application = await db.voterApplication.findUnique({
         where: {
             userId: session.user.id,
         },
@@ -93,7 +93,7 @@ export default async function DashboardPage() {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <p className="text-sm text-muted-foreground">Name</p>
-                                        <p className="font-medium">{application.firstName} {application.lastName}</p>
+                                        <p className="font-medium">{application.firstName} {application.surname}</p>
                                     </div>
                                     <div>
                                         <p className="text-sm text-muted-foreground">Submitted</p>

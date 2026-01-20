@@ -1,4 +1,4 @@
-import { prisma } from "./lib/db"
+import { db } from "./lib/db"
 import { verifyPassword } from "./lib/password"
 import "dotenv/config"
 
@@ -11,7 +11,7 @@ async function checkUser() {
         console.log("Email:", email)
         console.log("Password to test:", passwordToTest)
 
-        const user = await prisma.user.findUnique({
+        const user = await db.user.findUnique({
             where: { email }
         })
 
@@ -40,7 +40,7 @@ async function checkUser() {
     } catch (error) {
         console.error("Error:", error)
     } finally {
-        await prisma.$disconnect()
+        await db.$disconnect()
     }
 }
 

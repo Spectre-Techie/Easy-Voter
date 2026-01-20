@@ -1,6 +1,6 @@
 import NextAuth, { DefaultSession } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { prisma } from "@/lib/db"
+import { db } from "@/lib/db"
 import { verifyPassword } from "@/lib/password"
 
 // Import Role from Prisma generated types
@@ -43,7 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     throw new Error("Please enter your email and password")
                 }
 
-                const user = await prisma.user.findUnique({
+                const user = await db.user.findUnique({
                     where: {
                         email: credentials.email as string,
                     },

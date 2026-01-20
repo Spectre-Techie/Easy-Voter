@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/db"
+import { db } from "@/lib/db"
 import { hashPassword } from "@/lib/password"
 import { z } from "zod"
 
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
         const validatedData = resetPasswordApiSchema.parse(body)
 
         // Find user with valid token
-        const user = await prisma.user.findFirst({
+        const user = await db.user.findFirst({
             where: {
                 resetToken: validatedData.token,
                 resetTokenExpiry: {
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         const passwordHash = await hashPassword(validatedData.password)
 
         // Update password and clear reset token
-        await prisma.user.update({
+        await db.user.update({
             where: { id: user.id },
             data: {
                 passwordHash,

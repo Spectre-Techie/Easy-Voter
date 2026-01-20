@@ -55,6 +55,7 @@ export type Gender = (typeof Gender)[keyof typeof Gender]
 export const ApplicationStatus: {
   DRAFT: 'DRAFT',
   PENDING: 'PENDING',
+  UNDER_REVIEW: 'UNDER_REVIEW',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'
 };
@@ -2302,27 +2303,43 @@ export namespace Prisma {
   export type VoterApplicationMinAggregateOutputType = {
     id: string | null
     userId: string | null
+    surname: string | null
     firstName: string | null
-    lastName: string | null
     middleName: string | null
     dateOfBirth: Date | null
     gender: $Enums.Gender | null
-    email: string | null
     phoneNumber: string | null
-    address: string | null
-    city: string | null
+    email: string | null
+    occupation: string | null
+    nin: string | null
     state: string | null
-    zipCode: string | null
+    lga: string | null
+    ward: string | null
+    pollingUnit: string | null
+    streetAddress: string | null
+    landmark: string | null
     idPhotoUrl: string | null
     idPhotoKey: string | null
+    passportPhotoUrl: string | null
+    passportPhotoKey: string | null
+    proofOfAddressUrl: string | null
+    proofOfAddressKey: string | null
+    disability: string | null
+    preferredLanguage: string | null
+    previousVoterCard: string | null
+    applicationRef: string | null
     status: $Enums.ApplicationStatus | null
+    submittedAt: Date | null
     reviewNotes: string | null
     reviewedById: string | null
     reviewedAt: Date | null
+    reviewStartedAt: Date | null
+    estimatedCompletion: Date | null
+    documentVerified: boolean | null
+    verificationNotes: string | null
     voterCardId: string | null
     voterCardPdfUrl: string | null
     voterCardPdfKey: string | null
-    submittedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2330,27 +2347,43 @@ export namespace Prisma {
   export type VoterApplicationMaxAggregateOutputType = {
     id: string | null
     userId: string | null
+    surname: string | null
     firstName: string | null
-    lastName: string | null
     middleName: string | null
     dateOfBirth: Date | null
     gender: $Enums.Gender | null
-    email: string | null
     phoneNumber: string | null
-    address: string | null
-    city: string | null
+    email: string | null
+    occupation: string | null
+    nin: string | null
     state: string | null
-    zipCode: string | null
+    lga: string | null
+    ward: string | null
+    pollingUnit: string | null
+    streetAddress: string | null
+    landmark: string | null
     idPhotoUrl: string | null
     idPhotoKey: string | null
+    passportPhotoUrl: string | null
+    passportPhotoKey: string | null
+    proofOfAddressUrl: string | null
+    proofOfAddressKey: string | null
+    disability: string | null
+    preferredLanguage: string | null
+    previousVoterCard: string | null
+    applicationRef: string | null
     status: $Enums.ApplicationStatus | null
+    submittedAt: Date | null
     reviewNotes: string | null
     reviewedById: string | null
     reviewedAt: Date | null
+    reviewStartedAt: Date | null
+    estimatedCompletion: Date | null
+    documentVerified: boolean | null
+    verificationNotes: string | null
     voterCardId: string | null
     voterCardPdfUrl: string | null
     voterCardPdfKey: string | null
-    submittedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2358,27 +2391,43 @@ export namespace Prisma {
   export type VoterApplicationCountAggregateOutputType = {
     id: number
     userId: number
+    surname: number
     firstName: number
-    lastName: number
     middleName: number
     dateOfBirth: number
     gender: number
-    email: number
     phoneNumber: number
-    address: number
-    city: number
+    email: number
+    occupation: number
+    nin: number
     state: number
-    zipCode: number
+    lga: number
+    ward: number
+    pollingUnit: number
+    streetAddress: number
+    landmark: number
     idPhotoUrl: number
     idPhotoKey: number
+    passportPhotoUrl: number
+    passportPhotoKey: number
+    proofOfAddressUrl: number
+    proofOfAddressKey: number
+    disability: number
+    preferredLanguage: number
+    previousVoterCard: number
+    applicationRef: number
     status: number
+    submittedAt: number
     reviewNotes: number
     reviewedById: number
     reviewedAt: number
+    reviewStartedAt: number
+    estimatedCompletion: number
+    documentVerified: number
+    verificationNotes: number
     voterCardId: number
     voterCardPdfUrl: number
     voterCardPdfKey: number
-    submittedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2388,27 +2437,43 @@ export namespace Prisma {
   export type VoterApplicationMinAggregateInputType = {
     id?: true
     userId?: true
+    surname?: true
     firstName?: true
-    lastName?: true
     middleName?: true
     dateOfBirth?: true
     gender?: true
-    email?: true
     phoneNumber?: true
-    address?: true
-    city?: true
+    email?: true
+    occupation?: true
+    nin?: true
     state?: true
-    zipCode?: true
+    lga?: true
+    ward?: true
+    pollingUnit?: true
+    streetAddress?: true
+    landmark?: true
     idPhotoUrl?: true
     idPhotoKey?: true
+    passportPhotoUrl?: true
+    passportPhotoKey?: true
+    proofOfAddressUrl?: true
+    proofOfAddressKey?: true
+    disability?: true
+    preferredLanguage?: true
+    previousVoterCard?: true
+    applicationRef?: true
     status?: true
+    submittedAt?: true
     reviewNotes?: true
     reviewedById?: true
     reviewedAt?: true
+    reviewStartedAt?: true
+    estimatedCompletion?: true
+    documentVerified?: true
+    verificationNotes?: true
     voterCardId?: true
     voterCardPdfUrl?: true
     voterCardPdfKey?: true
-    submittedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2416,27 +2481,43 @@ export namespace Prisma {
   export type VoterApplicationMaxAggregateInputType = {
     id?: true
     userId?: true
+    surname?: true
     firstName?: true
-    lastName?: true
     middleName?: true
     dateOfBirth?: true
     gender?: true
-    email?: true
     phoneNumber?: true
-    address?: true
-    city?: true
+    email?: true
+    occupation?: true
+    nin?: true
     state?: true
-    zipCode?: true
+    lga?: true
+    ward?: true
+    pollingUnit?: true
+    streetAddress?: true
+    landmark?: true
     idPhotoUrl?: true
     idPhotoKey?: true
+    passportPhotoUrl?: true
+    passportPhotoKey?: true
+    proofOfAddressUrl?: true
+    proofOfAddressKey?: true
+    disability?: true
+    preferredLanguage?: true
+    previousVoterCard?: true
+    applicationRef?: true
     status?: true
+    submittedAt?: true
     reviewNotes?: true
     reviewedById?: true
     reviewedAt?: true
+    reviewStartedAt?: true
+    estimatedCompletion?: true
+    documentVerified?: true
+    verificationNotes?: true
     voterCardId?: true
     voterCardPdfUrl?: true
     voterCardPdfKey?: true
-    submittedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2444,27 +2525,43 @@ export namespace Prisma {
   export type VoterApplicationCountAggregateInputType = {
     id?: true
     userId?: true
+    surname?: true
     firstName?: true
-    lastName?: true
     middleName?: true
     dateOfBirth?: true
     gender?: true
-    email?: true
     phoneNumber?: true
-    address?: true
-    city?: true
+    email?: true
+    occupation?: true
+    nin?: true
     state?: true
-    zipCode?: true
+    lga?: true
+    ward?: true
+    pollingUnit?: true
+    streetAddress?: true
+    landmark?: true
     idPhotoUrl?: true
     idPhotoKey?: true
+    passportPhotoUrl?: true
+    passportPhotoKey?: true
+    proofOfAddressUrl?: true
+    proofOfAddressKey?: true
+    disability?: true
+    preferredLanguage?: true
+    previousVoterCard?: true
+    applicationRef?: true
     status?: true
+    submittedAt?: true
     reviewNotes?: true
     reviewedById?: true
     reviewedAt?: true
+    reviewStartedAt?: true
+    estimatedCompletion?: true
+    documentVerified?: true
+    verificationNotes?: true
     voterCardId?: true
     voterCardPdfUrl?: true
     voterCardPdfKey?: true
-    submittedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2545,27 +2642,43 @@ export namespace Prisma {
   export type VoterApplicationGroupByOutputType = {
     id: string
     userId: string
+    surname: string
     firstName: string
-    lastName: string
     middleName: string | null
     dateOfBirth: Date
     gender: $Enums.Gender
-    email: string
     phoneNumber: string
-    address: string
-    city: string
+    email: string
+    occupation: string
+    nin: string | null
     state: string
-    zipCode: string
+    lga: string
+    ward: string
+    pollingUnit: string | null
+    streetAddress: string
+    landmark: string | null
     idPhotoUrl: string
     idPhotoKey: string
+    passportPhotoUrl: string
+    passportPhotoKey: string
+    proofOfAddressUrl: string | null
+    proofOfAddressKey: string | null
+    disability: string | null
+    preferredLanguage: string
+    previousVoterCard: string | null
+    applicationRef: string
     status: $Enums.ApplicationStatus
+    submittedAt: Date | null
     reviewNotes: string | null
     reviewedById: string | null
     reviewedAt: Date | null
+    reviewStartedAt: Date | null
+    estimatedCompletion: Date | null
+    documentVerified: boolean
+    verificationNotes: string | null
     voterCardId: string | null
     voterCardPdfUrl: string | null
     voterCardPdfKey: string | null
-    submittedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: VoterApplicationCountAggregateOutputType | null
@@ -2590,27 +2703,43 @@ export namespace Prisma {
   export type VoterApplicationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    surname?: boolean
     firstName?: boolean
-    lastName?: boolean
     middleName?: boolean
     dateOfBirth?: boolean
     gender?: boolean
-    email?: boolean
     phoneNumber?: boolean
-    address?: boolean
-    city?: boolean
+    email?: boolean
+    occupation?: boolean
+    nin?: boolean
     state?: boolean
-    zipCode?: boolean
+    lga?: boolean
+    ward?: boolean
+    pollingUnit?: boolean
+    streetAddress?: boolean
+    landmark?: boolean
     idPhotoUrl?: boolean
     idPhotoKey?: boolean
+    passportPhotoUrl?: boolean
+    passportPhotoKey?: boolean
+    proofOfAddressUrl?: boolean
+    proofOfAddressKey?: boolean
+    disability?: boolean
+    preferredLanguage?: boolean
+    previousVoterCard?: boolean
+    applicationRef?: boolean
     status?: boolean
+    submittedAt?: boolean
     reviewNotes?: boolean
     reviewedById?: boolean
     reviewedAt?: boolean
+    reviewStartedAt?: boolean
+    estimatedCompletion?: boolean
+    documentVerified?: boolean
+    verificationNotes?: boolean
     voterCardId?: boolean
     voterCardPdfUrl?: boolean
     voterCardPdfKey?: boolean
-    submittedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2620,27 +2749,43 @@ export namespace Prisma {
   export type VoterApplicationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    surname?: boolean
     firstName?: boolean
-    lastName?: boolean
     middleName?: boolean
     dateOfBirth?: boolean
     gender?: boolean
-    email?: boolean
     phoneNumber?: boolean
-    address?: boolean
-    city?: boolean
+    email?: boolean
+    occupation?: boolean
+    nin?: boolean
     state?: boolean
-    zipCode?: boolean
+    lga?: boolean
+    ward?: boolean
+    pollingUnit?: boolean
+    streetAddress?: boolean
+    landmark?: boolean
     idPhotoUrl?: boolean
     idPhotoKey?: boolean
+    passportPhotoUrl?: boolean
+    passportPhotoKey?: boolean
+    proofOfAddressUrl?: boolean
+    proofOfAddressKey?: boolean
+    disability?: boolean
+    preferredLanguage?: boolean
+    previousVoterCard?: boolean
+    applicationRef?: boolean
     status?: boolean
+    submittedAt?: boolean
     reviewNotes?: boolean
     reviewedById?: boolean
     reviewedAt?: boolean
+    reviewStartedAt?: boolean
+    estimatedCompletion?: boolean
+    documentVerified?: boolean
+    verificationNotes?: boolean
     voterCardId?: boolean
     voterCardPdfUrl?: boolean
     voterCardPdfKey?: boolean
-    submittedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2650,27 +2795,43 @@ export namespace Prisma {
   export type VoterApplicationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    surname?: boolean
     firstName?: boolean
-    lastName?: boolean
     middleName?: boolean
     dateOfBirth?: boolean
     gender?: boolean
-    email?: boolean
     phoneNumber?: boolean
-    address?: boolean
-    city?: boolean
+    email?: boolean
+    occupation?: boolean
+    nin?: boolean
     state?: boolean
-    zipCode?: boolean
+    lga?: boolean
+    ward?: boolean
+    pollingUnit?: boolean
+    streetAddress?: boolean
+    landmark?: boolean
     idPhotoUrl?: boolean
     idPhotoKey?: boolean
+    passportPhotoUrl?: boolean
+    passportPhotoKey?: boolean
+    proofOfAddressUrl?: boolean
+    proofOfAddressKey?: boolean
+    disability?: boolean
+    preferredLanguage?: boolean
+    previousVoterCard?: boolean
+    applicationRef?: boolean
     status?: boolean
+    submittedAt?: boolean
     reviewNotes?: boolean
     reviewedById?: boolean
     reviewedAt?: boolean
+    reviewStartedAt?: boolean
+    estimatedCompletion?: boolean
+    documentVerified?: boolean
+    verificationNotes?: boolean
     voterCardId?: boolean
     voterCardPdfUrl?: boolean
     voterCardPdfKey?: boolean
-    submittedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2680,32 +2841,48 @@ export namespace Prisma {
   export type VoterApplicationSelectScalar = {
     id?: boolean
     userId?: boolean
+    surname?: boolean
     firstName?: boolean
-    lastName?: boolean
     middleName?: boolean
     dateOfBirth?: boolean
     gender?: boolean
-    email?: boolean
     phoneNumber?: boolean
-    address?: boolean
-    city?: boolean
+    email?: boolean
+    occupation?: boolean
+    nin?: boolean
     state?: boolean
-    zipCode?: boolean
+    lga?: boolean
+    ward?: boolean
+    pollingUnit?: boolean
+    streetAddress?: boolean
+    landmark?: boolean
     idPhotoUrl?: boolean
     idPhotoKey?: boolean
+    passportPhotoUrl?: boolean
+    passportPhotoKey?: boolean
+    proofOfAddressUrl?: boolean
+    proofOfAddressKey?: boolean
+    disability?: boolean
+    preferredLanguage?: boolean
+    previousVoterCard?: boolean
+    applicationRef?: boolean
     status?: boolean
+    submittedAt?: boolean
     reviewNotes?: boolean
     reviewedById?: boolean
     reviewedAt?: boolean
+    reviewStartedAt?: boolean
+    estimatedCompletion?: boolean
+    documentVerified?: boolean
+    verificationNotes?: boolean
     voterCardId?: boolean
     voterCardPdfUrl?: boolean
     voterCardPdfKey?: boolean
-    submittedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type VoterApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "lastName" | "middleName" | "dateOfBirth" | "gender" | "email" | "phoneNumber" | "address" | "city" | "state" | "zipCode" | "idPhotoUrl" | "idPhotoKey" | "status" | "reviewNotes" | "reviewedById" | "reviewedAt" | "voterCardId" | "voterCardPdfUrl" | "voterCardPdfKey" | "submittedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["voterApplication"]>
+  export type VoterApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "surname" | "firstName" | "middleName" | "dateOfBirth" | "gender" | "phoneNumber" | "email" | "occupation" | "nin" | "state" | "lga" | "ward" | "pollingUnit" | "streetAddress" | "landmark" | "idPhotoUrl" | "idPhotoKey" | "passportPhotoUrl" | "passportPhotoKey" | "proofOfAddressUrl" | "proofOfAddressKey" | "disability" | "preferredLanguage" | "previousVoterCard" | "applicationRef" | "status" | "submittedAt" | "reviewNotes" | "reviewedById" | "reviewedAt" | "reviewStartedAt" | "estimatedCompletion" | "documentVerified" | "verificationNotes" | "voterCardId" | "voterCardPdfUrl" | "voterCardPdfKey" | "createdAt" | "updatedAt", ExtArgs["result"]["voterApplication"]>
   export type VoterApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     reviewedBy?: boolean | VoterApplication$reviewedByArgs<ExtArgs>
@@ -2728,27 +2905,43 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
+      surname: string
       firstName: string
-      lastName: string
       middleName: string | null
       dateOfBirth: Date
       gender: $Enums.Gender
-      email: string
       phoneNumber: string
-      address: string
-      city: string
+      email: string
+      occupation: string
+      nin: string | null
       state: string
-      zipCode: string
+      lga: string
+      ward: string
+      pollingUnit: string | null
+      streetAddress: string
+      landmark: string | null
       idPhotoUrl: string
       idPhotoKey: string
+      passportPhotoUrl: string
+      passportPhotoKey: string
+      proofOfAddressUrl: string | null
+      proofOfAddressKey: string | null
+      disability: string | null
+      preferredLanguage: string
+      previousVoterCard: string | null
+      applicationRef: string
       status: $Enums.ApplicationStatus
+      submittedAt: Date | null
       reviewNotes: string | null
       reviewedById: string | null
       reviewedAt: Date | null
+      reviewStartedAt: Date | null
+      estimatedCompletion: Date | null
+      documentVerified: boolean
+      verificationNotes: string | null
       voterCardId: string | null
       voterCardPdfUrl: string | null
       voterCardPdfKey: string | null
-      submittedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["voterApplication"]>
@@ -3178,27 +3371,43 @@ export namespace Prisma {
   interface VoterApplicationFieldRefs {
     readonly id: FieldRef<"VoterApplication", 'String'>
     readonly userId: FieldRef<"VoterApplication", 'String'>
+    readonly surname: FieldRef<"VoterApplication", 'String'>
     readonly firstName: FieldRef<"VoterApplication", 'String'>
-    readonly lastName: FieldRef<"VoterApplication", 'String'>
     readonly middleName: FieldRef<"VoterApplication", 'String'>
     readonly dateOfBirth: FieldRef<"VoterApplication", 'DateTime'>
     readonly gender: FieldRef<"VoterApplication", 'Gender'>
-    readonly email: FieldRef<"VoterApplication", 'String'>
     readonly phoneNumber: FieldRef<"VoterApplication", 'String'>
-    readonly address: FieldRef<"VoterApplication", 'String'>
-    readonly city: FieldRef<"VoterApplication", 'String'>
+    readonly email: FieldRef<"VoterApplication", 'String'>
+    readonly occupation: FieldRef<"VoterApplication", 'String'>
+    readonly nin: FieldRef<"VoterApplication", 'String'>
     readonly state: FieldRef<"VoterApplication", 'String'>
-    readonly zipCode: FieldRef<"VoterApplication", 'String'>
+    readonly lga: FieldRef<"VoterApplication", 'String'>
+    readonly ward: FieldRef<"VoterApplication", 'String'>
+    readonly pollingUnit: FieldRef<"VoterApplication", 'String'>
+    readonly streetAddress: FieldRef<"VoterApplication", 'String'>
+    readonly landmark: FieldRef<"VoterApplication", 'String'>
     readonly idPhotoUrl: FieldRef<"VoterApplication", 'String'>
     readonly idPhotoKey: FieldRef<"VoterApplication", 'String'>
+    readonly passportPhotoUrl: FieldRef<"VoterApplication", 'String'>
+    readonly passportPhotoKey: FieldRef<"VoterApplication", 'String'>
+    readonly proofOfAddressUrl: FieldRef<"VoterApplication", 'String'>
+    readonly proofOfAddressKey: FieldRef<"VoterApplication", 'String'>
+    readonly disability: FieldRef<"VoterApplication", 'String'>
+    readonly preferredLanguage: FieldRef<"VoterApplication", 'String'>
+    readonly previousVoterCard: FieldRef<"VoterApplication", 'String'>
+    readonly applicationRef: FieldRef<"VoterApplication", 'String'>
     readonly status: FieldRef<"VoterApplication", 'ApplicationStatus'>
+    readonly submittedAt: FieldRef<"VoterApplication", 'DateTime'>
     readonly reviewNotes: FieldRef<"VoterApplication", 'String'>
     readonly reviewedById: FieldRef<"VoterApplication", 'String'>
     readonly reviewedAt: FieldRef<"VoterApplication", 'DateTime'>
+    readonly reviewStartedAt: FieldRef<"VoterApplication", 'DateTime'>
+    readonly estimatedCompletion: FieldRef<"VoterApplication", 'DateTime'>
+    readonly documentVerified: FieldRef<"VoterApplication", 'Boolean'>
+    readonly verificationNotes: FieldRef<"VoterApplication", 'String'>
     readonly voterCardId: FieldRef<"VoterApplication", 'String'>
     readonly voterCardPdfUrl: FieldRef<"VoterApplication", 'String'>
     readonly voterCardPdfKey: FieldRef<"VoterApplication", 'String'>
-    readonly submittedAt: FieldRef<"VoterApplication", 'DateTime'>
     readonly createdAt: FieldRef<"VoterApplication", 'DateTime'>
     readonly updatedAt: FieldRef<"VoterApplication", 'DateTime'>
   }
@@ -4771,27 +4980,43 @@ export namespace Prisma {
   export const VoterApplicationScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    surname: 'surname',
     firstName: 'firstName',
-    lastName: 'lastName',
     middleName: 'middleName',
     dateOfBirth: 'dateOfBirth',
     gender: 'gender',
-    email: 'email',
     phoneNumber: 'phoneNumber',
-    address: 'address',
-    city: 'city',
+    email: 'email',
+    occupation: 'occupation',
+    nin: 'nin',
     state: 'state',
-    zipCode: 'zipCode',
+    lga: 'lga',
+    ward: 'ward',
+    pollingUnit: 'pollingUnit',
+    streetAddress: 'streetAddress',
+    landmark: 'landmark',
     idPhotoUrl: 'idPhotoUrl',
     idPhotoKey: 'idPhotoKey',
+    passportPhotoUrl: 'passportPhotoUrl',
+    passportPhotoKey: 'passportPhotoKey',
+    proofOfAddressUrl: 'proofOfAddressUrl',
+    proofOfAddressKey: 'proofOfAddressKey',
+    disability: 'disability',
+    preferredLanguage: 'preferredLanguage',
+    previousVoterCard: 'previousVoterCard',
+    applicationRef: 'applicationRef',
     status: 'status',
+    submittedAt: 'submittedAt',
     reviewNotes: 'reviewNotes',
     reviewedById: 'reviewedById',
     reviewedAt: 'reviewedAt',
+    reviewStartedAt: 'reviewStartedAt',
+    estimatedCompletion: 'estimatedCompletion',
+    documentVerified: 'documentVerified',
+    verificationNotes: 'verificationNotes',
     voterCardId: 'voterCardId',
     voterCardPdfUrl: 'voterCardPdfUrl',
     voterCardPdfKey: 'voterCardPdfKey',
-    submittedAt: 'submittedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4931,6 +5156,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -5043,27 +5275,43 @@ export namespace Prisma {
     NOT?: VoterApplicationWhereInput | VoterApplicationWhereInput[]
     id?: StringFilter<"VoterApplication"> | string
     userId?: StringFilter<"VoterApplication"> | string
+    surname?: StringFilter<"VoterApplication"> | string
     firstName?: StringFilter<"VoterApplication"> | string
-    lastName?: StringFilter<"VoterApplication"> | string
     middleName?: StringNullableFilter<"VoterApplication"> | string | null
     dateOfBirth?: DateTimeFilter<"VoterApplication"> | Date | string
     gender?: EnumGenderFilter<"VoterApplication"> | $Enums.Gender
-    email?: StringFilter<"VoterApplication"> | string
     phoneNumber?: StringFilter<"VoterApplication"> | string
-    address?: StringFilter<"VoterApplication"> | string
-    city?: StringFilter<"VoterApplication"> | string
+    email?: StringFilter<"VoterApplication"> | string
+    occupation?: StringFilter<"VoterApplication"> | string
+    nin?: StringNullableFilter<"VoterApplication"> | string | null
     state?: StringFilter<"VoterApplication"> | string
-    zipCode?: StringFilter<"VoterApplication"> | string
+    lga?: StringFilter<"VoterApplication"> | string
+    ward?: StringFilter<"VoterApplication"> | string
+    pollingUnit?: StringNullableFilter<"VoterApplication"> | string | null
+    streetAddress?: StringFilter<"VoterApplication"> | string
+    landmark?: StringNullableFilter<"VoterApplication"> | string | null
     idPhotoUrl?: StringFilter<"VoterApplication"> | string
     idPhotoKey?: StringFilter<"VoterApplication"> | string
+    passportPhotoUrl?: StringFilter<"VoterApplication"> | string
+    passportPhotoKey?: StringFilter<"VoterApplication"> | string
+    proofOfAddressUrl?: StringNullableFilter<"VoterApplication"> | string | null
+    proofOfAddressKey?: StringNullableFilter<"VoterApplication"> | string | null
+    disability?: StringNullableFilter<"VoterApplication"> | string | null
+    preferredLanguage?: StringFilter<"VoterApplication"> | string
+    previousVoterCard?: StringNullableFilter<"VoterApplication"> | string | null
+    applicationRef?: StringFilter<"VoterApplication"> | string
     status?: EnumApplicationStatusFilter<"VoterApplication"> | $Enums.ApplicationStatus
+    submittedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
     reviewNotes?: StringNullableFilter<"VoterApplication"> | string | null
     reviewedById?: StringNullableFilter<"VoterApplication"> | string | null
     reviewedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
+    reviewStartedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
+    estimatedCompletion?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
+    documentVerified?: BoolFilter<"VoterApplication"> | boolean
+    verificationNotes?: StringNullableFilter<"VoterApplication"> | string | null
     voterCardId?: StringNullableFilter<"VoterApplication"> | string | null
     voterCardPdfUrl?: StringNullableFilter<"VoterApplication"> | string | null
     voterCardPdfKey?: StringNullableFilter<"VoterApplication"> | string | null
-    submittedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
     createdAt?: DateTimeFilter<"VoterApplication"> | Date | string
     updatedAt?: DateTimeFilter<"VoterApplication"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -5073,27 +5321,43 @@ export namespace Prisma {
   export type VoterApplicationOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    surname?: SortOrder
     firstName?: SortOrder
-    lastName?: SortOrder
     middleName?: SortOrderInput | SortOrder
     dateOfBirth?: SortOrder
     gender?: SortOrder
-    email?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    city?: SortOrder
+    email?: SortOrder
+    occupation?: SortOrder
+    nin?: SortOrderInput | SortOrder
     state?: SortOrder
-    zipCode?: SortOrder
+    lga?: SortOrder
+    ward?: SortOrder
+    pollingUnit?: SortOrderInput | SortOrder
+    streetAddress?: SortOrder
+    landmark?: SortOrderInput | SortOrder
     idPhotoUrl?: SortOrder
     idPhotoKey?: SortOrder
+    passportPhotoUrl?: SortOrder
+    passportPhotoKey?: SortOrder
+    proofOfAddressUrl?: SortOrderInput | SortOrder
+    proofOfAddressKey?: SortOrderInput | SortOrder
+    disability?: SortOrderInput | SortOrder
+    preferredLanguage?: SortOrder
+    previousVoterCard?: SortOrderInput | SortOrder
+    applicationRef?: SortOrder
     status?: SortOrder
+    submittedAt?: SortOrderInput | SortOrder
     reviewNotes?: SortOrderInput | SortOrder
     reviewedById?: SortOrderInput | SortOrder
     reviewedAt?: SortOrderInput | SortOrder
+    reviewStartedAt?: SortOrderInput | SortOrder
+    estimatedCompletion?: SortOrderInput | SortOrder
+    documentVerified?: SortOrder
+    verificationNotes?: SortOrderInput | SortOrder
     voterCardId?: SortOrderInput | SortOrder
     voterCardPdfUrl?: SortOrderInput | SortOrder
     voterCardPdfKey?: SortOrderInput | SortOrder
-    submittedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -5103,60 +5367,92 @@ export namespace Prisma {
   export type VoterApplicationWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     userId?: string
+    applicationRef?: string
     voterCardId?: string
     AND?: VoterApplicationWhereInput | VoterApplicationWhereInput[]
     OR?: VoterApplicationWhereInput[]
     NOT?: VoterApplicationWhereInput | VoterApplicationWhereInput[]
+    surname?: StringFilter<"VoterApplication"> | string
     firstName?: StringFilter<"VoterApplication"> | string
-    lastName?: StringFilter<"VoterApplication"> | string
     middleName?: StringNullableFilter<"VoterApplication"> | string | null
     dateOfBirth?: DateTimeFilter<"VoterApplication"> | Date | string
     gender?: EnumGenderFilter<"VoterApplication"> | $Enums.Gender
-    email?: StringFilter<"VoterApplication"> | string
     phoneNumber?: StringFilter<"VoterApplication"> | string
-    address?: StringFilter<"VoterApplication"> | string
-    city?: StringFilter<"VoterApplication"> | string
+    email?: StringFilter<"VoterApplication"> | string
+    occupation?: StringFilter<"VoterApplication"> | string
+    nin?: StringNullableFilter<"VoterApplication"> | string | null
     state?: StringFilter<"VoterApplication"> | string
-    zipCode?: StringFilter<"VoterApplication"> | string
+    lga?: StringFilter<"VoterApplication"> | string
+    ward?: StringFilter<"VoterApplication"> | string
+    pollingUnit?: StringNullableFilter<"VoterApplication"> | string | null
+    streetAddress?: StringFilter<"VoterApplication"> | string
+    landmark?: StringNullableFilter<"VoterApplication"> | string | null
     idPhotoUrl?: StringFilter<"VoterApplication"> | string
     idPhotoKey?: StringFilter<"VoterApplication"> | string
+    passportPhotoUrl?: StringFilter<"VoterApplication"> | string
+    passportPhotoKey?: StringFilter<"VoterApplication"> | string
+    proofOfAddressUrl?: StringNullableFilter<"VoterApplication"> | string | null
+    proofOfAddressKey?: StringNullableFilter<"VoterApplication"> | string | null
+    disability?: StringNullableFilter<"VoterApplication"> | string | null
+    preferredLanguage?: StringFilter<"VoterApplication"> | string
+    previousVoterCard?: StringNullableFilter<"VoterApplication"> | string | null
     status?: EnumApplicationStatusFilter<"VoterApplication"> | $Enums.ApplicationStatus
+    submittedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
     reviewNotes?: StringNullableFilter<"VoterApplication"> | string | null
     reviewedById?: StringNullableFilter<"VoterApplication"> | string | null
     reviewedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
+    reviewStartedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
+    estimatedCompletion?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
+    documentVerified?: BoolFilter<"VoterApplication"> | boolean
+    verificationNotes?: StringNullableFilter<"VoterApplication"> | string | null
     voterCardPdfUrl?: StringNullableFilter<"VoterApplication"> | string | null
     voterCardPdfKey?: StringNullableFilter<"VoterApplication"> | string | null
-    submittedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
     createdAt?: DateTimeFilter<"VoterApplication"> | Date | string
     updatedAt?: DateTimeFilter<"VoterApplication"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     reviewedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id" | "userId" | "voterCardId">
+  }, "id" | "userId" | "applicationRef" | "voterCardId">
 
   export type VoterApplicationOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    surname?: SortOrder
     firstName?: SortOrder
-    lastName?: SortOrder
     middleName?: SortOrderInput | SortOrder
     dateOfBirth?: SortOrder
     gender?: SortOrder
-    email?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    city?: SortOrder
+    email?: SortOrder
+    occupation?: SortOrder
+    nin?: SortOrderInput | SortOrder
     state?: SortOrder
-    zipCode?: SortOrder
+    lga?: SortOrder
+    ward?: SortOrder
+    pollingUnit?: SortOrderInput | SortOrder
+    streetAddress?: SortOrder
+    landmark?: SortOrderInput | SortOrder
     idPhotoUrl?: SortOrder
     idPhotoKey?: SortOrder
+    passportPhotoUrl?: SortOrder
+    passportPhotoKey?: SortOrder
+    proofOfAddressUrl?: SortOrderInput | SortOrder
+    proofOfAddressKey?: SortOrderInput | SortOrder
+    disability?: SortOrderInput | SortOrder
+    preferredLanguage?: SortOrder
+    previousVoterCard?: SortOrderInput | SortOrder
+    applicationRef?: SortOrder
     status?: SortOrder
+    submittedAt?: SortOrderInput | SortOrder
     reviewNotes?: SortOrderInput | SortOrder
     reviewedById?: SortOrderInput | SortOrder
     reviewedAt?: SortOrderInput | SortOrder
+    reviewStartedAt?: SortOrderInput | SortOrder
+    estimatedCompletion?: SortOrderInput | SortOrder
+    documentVerified?: SortOrder
+    verificationNotes?: SortOrderInput | SortOrder
     voterCardId?: SortOrderInput | SortOrder
     voterCardPdfUrl?: SortOrderInput | SortOrder
     voterCardPdfKey?: SortOrderInput | SortOrder
-    submittedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: VoterApplicationCountOrderByAggregateInput
@@ -5170,27 +5466,43 @@ export namespace Prisma {
     NOT?: VoterApplicationScalarWhereWithAggregatesInput | VoterApplicationScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"VoterApplication"> | string
     userId?: StringWithAggregatesFilter<"VoterApplication"> | string
+    surname?: StringWithAggregatesFilter<"VoterApplication"> | string
     firstName?: StringWithAggregatesFilter<"VoterApplication"> | string
-    lastName?: StringWithAggregatesFilter<"VoterApplication"> | string
     middleName?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
     dateOfBirth?: DateTimeWithAggregatesFilter<"VoterApplication"> | Date | string
     gender?: EnumGenderWithAggregatesFilter<"VoterApplication"> | $Enums.Gender
-    email?: StringWithAggregatesFilter<"VoterApplication"> | string
     phoneNumber?: StringWithAggregatesFilter<"VoterApplication"> | string
-    address?: StringWithAggregatesFilter<"VoterApplication"> | string
-    city?: StringWithAggregatesFilter<"VoterApplication"> | string
+    email?: StringWithAggregatesFilter<"VoterApplication"> | string
+    occupation?: StringWithAggregatesFilter<"VoterApplication"> | string
+    nin?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
     state?: StringWithAggregatesFilter<"VoterApplication"> | string
-    zipCode?: StringWithAggregatesFilter<"VoterApplication"> | string
+    lga?: StringWithAggregatesFilter<"VoterApplication"> | string
+    ward?: StringWithAggregatesFilter<"VoterApplication"> | string
+    pollingUnit?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
+    streetAddress?: StringWithAggregatesFilter<"VoterApplication"> | string
+    landmark?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
     idPhotoUrl?: StringWithAggregatesFilter<"VoterApplication"> | string
     idPhotoKey?: StringWithAggregatesFilter<"VoterApplication"> | string
+    passportPhotoUrl?: StringWithAggregatesFilter<"VoterApplication"> | string
+    passportPhotoKey?: StringWithAggregatesFilter<"VoterApplication"> | string
+    proofOfAddressUrl?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
+    proofOfAddressKey?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
+    disability?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
+    preferredLanguage?: StringWithAggregatesFilter<"VoterApplication"> | string
+    previousVoterCard?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
+    applicationRef?: StringWithAggregatesFilter<"VoterApplication"> | string
     status?: EnumApplicationStatusWithAggregatesFilter<"VoterApplication"> | $Enums.ApplicationStatus
+    submittedAt?: DateTimeNullableWithAggregatesFilter<"VoterApplication"> | Date | string | null
     reviewNotes?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
     reviewedById?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
     reviewedAt?: DateTimeNullableWithAggregatesFilter<"VoterApplication"> | Date | string | null
+    reviewStartedAt?: DateTimeNullableWithAggregatesFilter<"VoterApplication"> | Date | string | null
+    estimatedCompletion?: DateTimeNullableWithAggregatesFilter<"VoterApplication"> | Date | string | null
+    documentVerified?: BoolWithAggregatesFilter<"VoterApplication"> | boolean
+    verificationNotes?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
     voterCardId?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
     voterCardPdfUrl?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
     voterCardPdfKey?: StringNullableWithAggregatesFilter<"VoterApplication"> | string | null
-    submittedAt?: DateTimeNullableWithAggregatesFilter<"VoterApplication"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"VoterApplication"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"VoterApplication"> | Date | string
   }
@@ -5361,26 +5673,42 @@ export namespace Prisma {
 
   export type VoterApplicationCreateInput = {
     id?: string
+    surname: string
     firstName: string
-    lastName: string
     middleName?: string | null
     dateOfBirth: Date | string
     gender: $Enums.Gender
-    email: string
     phoneNumber: string
-    address: string
-    city: string
+    email: string
+    occupation: string
+    nin?: string | null
     state: string
-    zipCode: string
+    lga: string
+    ward: string
+    pollingUnit?: string | null
+    streetAddress: string
+    landmark?: string | null
     idPhotoUrl: string
     idPhotoKey: string
+    passportPhotoUrl: string
+    passportPhotoKey: string
+    proofOfAddressUrl?: string | null
+    proofOfAddressKey?: string | null
+    disability?: string | null
+    preferredLanguage?: string
+    previousVoterCard?: string | null
+    applicationRef: string
     status?: $Enums.ApplicationStatus
+    submittedAt?: Date | string | null
     reviewNotes?: string | null
     reviewedAt?: Date | string | null
+    reviewStartedAt?: Date | string | null
+    estimatedCompletion?: Date | string | null
+    documentVerified?: boolean
+    verificationNotes?: string | null
     voterCardId?: string | null
     voterCardPdfUrl?: string | null
     voterCardPdfKey?: string | null
-    submittedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutApplicationInput
@@ -5390,53 +5718,85 @@ export namespace Prisma {
   export type VoterApplicationUncheckedCreateInput = {
     id?: string
     userId: string
+    surname: string
     firstName: string
-    lastName: string
     middleName?: string | null
     dateOfBirth: Date | string
     gender: $Enums.Gender
-    email: string
     phoneNumber: string
-    address: string
-    city: string
+    email: string
+    occupation: string
+    nin?: string | null
     state: string
-    zipCode: string
+    lga: string
+    ward: string
+    pollingUnit?: string | null
+    streetAddress: string
+    landmark?: string | null
     idPhotoUrl: string
     idPhotoKey: string
+    passportPhotoUrl: string
+    passportPhotoKey: string
+    proofOfAddressUrl?: string | null
+    proofOfAddressKey?: string | null
+    disability?: string | null
+    preferredLanguage?: string
+    previousVoterCard?: string | null
+    applicationRef: string
     status?: $Enums.ApplicationStatus
+    submittedAt?: Date | string | null
     reviewNotes?: string | null
     reviewedById?: string | null
     reviewedAt?: Date | string | null
+    reviewStartedAt?: Date | string | null
+    estimatedCompletion?: Date | string | null
+    documentVerified?: boolean
+    verificationNotes?: string | null
     voterCardId?: string | null
     voterCardPdfUrl?: string | null
     voterCardPdfKey?: string | null
-    submittedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type VoterApplicationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    occupation?: StringFieldUpdateOperationsInput | string
+    nin?: NullableStringFieldUpdateOperationsInput | string | null
     state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    lga?: StringFieldUpdateOperationsInput | string
+    ward?: StringFieldUpdateOperationsInput | string
+    pollingUnit?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
     idPhotoUrl?: StringFieldUpdateOperationsInput | string
     idPhotoKey?: StringFieldUpdateOperationsInput | string
+    passportPhotoUrl?: StringFieldUpdateOperationsInput | string
+    passportPhotoKey?: StringFieldUpdateOperationsInput | string
+    proofOfAddressUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfAddressKey?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
+    previousVoterCard?: NullableStringFieldUpdateOperationsInput | string | null
+    applicationRef?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedCompletion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documentVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardId?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutApplicationNestedInput
@@ -5446,27 +5806,43 @@ export namespace Prisma {
   export type VoterApplicationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    occupation?: StringFieldUpdateOperationsInput | string
+    nin?: NullableStringFieldUpdateOperationsInput | string | null
     state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    lga?: StringFieldUpdateOperationsInput | string
+    ward?: StringFieldUpdateOperationsInput | string
+    pollingUnit?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
     idPhotoUrl?: StringFieldUpdateOperationsInput | string
     idPhotoKey?: StringFieldUpdateOperationsInput | string
+    passportPhotoUrl?: StringFieldUpdateOperationsInput | string
+    passportPhotoKey?: StringFieldUpdateOperationsInput | string
+    proofOfAddressUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfAddressKey?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
+    previousVoterCard?: NullableStringFieldUpdateOperationsInput | string | null
+    applicationRef?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedCompletion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documentVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardId?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5474,53 +5850,85 @@ export namespace Prisma {
   export type VoterApplicationCreateManyInput = {
     id?: string
     userId: string
+    surname: string
     firstName: string
-    lastName: string
     middleName?: string | null
     dateOfBirth: Date | string
     gender: $Enums.Gender
-    email: string
     phoneNumber: string
-    address: string
-    city: string
+    email: string
+    occupation: string
+    nin?: string | null
     state: string
-    zipCode: string
+    lga: string
+    ward: string
+    pollingUnit?: string | null
+    streetAddress: string
+    landmark?: string | null
     idPhotoUrl: string
     idPhotoKey: string
+    passportPhotoUrl: string
+    passportPhotoKey: string
+    proofOfAddressUrl?: string | null
+    proofOfAddressKey?: string | null
+    disability?: string | null
+    preferredLanguage?: string
+    previousVoterCard?: string | null
+    applicationRef: string
     status?: $Enums.ApplicationStatus
+    submittedAt?: Date | string | null
     reviewNotes?: string | null
     reviewedById?: string | null
     reviewedAt?: Date | string | null
+    reviewStartedAt?: Date | string | null
+    estimatedCompletion?: Date | string | null
+    documentVerified?: boolean
+    verificationNotes?: string | null
     voterCardId?: string | null
     voterCardPdfUrl?: string | null
     voterCardPdfKey?: string | null
-    submittedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type VoterApplicationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    occupation?: StringFieldUpdateOperationsInput | string
+    nin?: NullableStringFieldUpdateOperationsInput | string | null
     state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    lga?: StringFieldUpdateOperationsInput | string
+    ward?: StringFieldUpdateOperationsInput | string
+    pollingUnit?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
     idPhotoUrl?: StringFieldUpdateOperationsInput | string
     idPhotoKey?: StringFieldUpdateOperationsInput | string
+    passportPhotoUrl?: StringFieldUpdateOperationsInput | string
+    passportPhotoKey?: StringFieldUpdateOperationsInput | string
+    proofOfAddressUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfAddressKey?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
+    previousVoterCard?: NullableStringFieldUpdateOperationsInput | string | null
+    applicationRef?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedCompletion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documentVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardId?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5528,27 +5936,43 @@ export namespace Prisma {
   export type VoterApplicationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    occupation?: StringFieldUpdateOperationsInput | string
+    nin?: NullableStringFieldUpdateOperationsInput | string | null
     state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    lga?: StringFieldUpdateOperationsInput | string
+    ward?: StringFieldUpdateOperationsInput | string
+    pollingUnit?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
     idPhotoUrl?: StringFieldUpdateOperationsInput | string
     idPhotoKey?: StringFieldUpdateOperationsInput | string
+    passportPhotoUrl?: StringFieldUpdateOperationsInput | string
+    passportPhotoKey?: StringFieldUpdateOperationsInput | string
+    proofOfAddressUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfAddressKey?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
+    previousVoterCard?: NullableStringFieldUpdateOperationsInput | string | null
+    applicationRef?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedCompletion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documentVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardId?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5846,6 +6270,11 @@ export namespace Prisma {
     not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -5859,27 +6288,43 @@ export namespace Prisma {
   export type VoterApplicationCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    surname?: SortOrder
     firstName?: SortOrder
-    lastName?: SortOrder
     middleName?: SortOrder
     dateOfBirth?: SortOrder
     gender?: SortOrder
-    email?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    city?: SortOrder
+    email?: SortOrder
+    occupation?: SortOrder
+    nin?: SortOrder
     state?: SortOrder
-    zipCode?: SortOrder
+    lga?: SortOrder
+    ward?: SortOrder
+    pollingUnit?: SortOrder
+    streetAddress?: SortOrder
+    landmark?: SortOrder
     idPhotoUrl?: SortOrder
     idPhotoKey?: SortOrder
+    passportPhotoUrl?: SortOrder
+    passportPhotoKey?: SortOrder
+    proofOfAddressUrl?: SortOrder
+    proofOfAddressKey?: SortOrder
+    disability?: SortOrder
+    preferredLanguage?: SortOrder
+    previousVoterCard?: SortOrder
+    applicationRef?: SortOrder
     status?: SortOrder
+    submittedAt?: SortOrder
     reviewNotes?: SortOrder
     reviewedById?: SortOrder
     reviewedAt?: SortOrder
+    reviewStartedAt?: SortOrder
+    estimatedCompletion?: SortOrder
+    documentVerified?: SortOrder
+    verificationNotes?: SortOrder
     voterCardId?: SortOrder
     voterCardPdfUrl?: SortOrder
     voterCardPdfKey?: SortOrder
-    submittedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5887,27 +6332,43 @@ export namespace Prisma {
   export type VoterApplicationMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    surname?: SortOrder
     firstName?: SortOrder
-    lastName?: SortOrder
     middleName?: SortOrder
     dateOfBirth?: SortOrder
     gender?: SortOrder
-    email?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    city?: SortOrder
+    email?: SortOrder
+    occupation?: SortOrder
+    nin?: SortOrder
     state?: SortOrder
-    zipCode?: SortOrder
+    lga?: SortOrder
+    ward?: SortOrder
+    pollingUnit?: SortOrder
+    streetAddress?: SortOrder
+    landmark?: SortOrder
     idPhotoUrl?: SortOrder
     idPhotoKey?: SortOrder
+    passportPhotoUrl?: SortOrder
+    passportPhotoKey?: SortOrder
+    proofOfAddressUrl?: SortOrder
+    proofOfAddressKey?: SortOrder
+    disability?: SortOrder
+    preferredLanguage?: SortOrder
+    previousVoterCard?: SortOrder
+    applicationRef?: SortOrder
     status?: SortOrder
+    submittedAt?: SortOrder
     reviewNotes?: SortOrder
     reviewedById?: SortOrder
     reviewedAt?: SortOrder
+    reviewStartedAt?: SortOrder
+    estimatedCompletion?: SortOrder
+    documentVerified?: SortOrder
+    verificationNotes?: SortOrder
     voterCardId?: SortOrder
     voterCardPdfUrl?: SortOrder
     voterCardPdfKey?: SortOrder
-    submittedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5915,27 +6376,43 @@ export namespace Prisma {
   export type VoterApplicationMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    surname?: SortOrder
     firstName?: SortOrder
-    lastName?: SortOrder
     middleName?: SortOrder
     dateOfBirth?: SortOrder
     gender?: SortOrder
-    email?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    city?: SortOrder
+    email?: SortOrder
+    occupation?: SortOrder
+    nin?: SortOrder
     state?: SortOrder
-    zipCode?: SortOrder
+    lga?: SortOrder
+    ward?: SortOrder
+    pollingUnit?: SortOrder
+    streetAddress?: SortOrder
+    landmark?: SortOrder
     idPhotoUrl?: SortOrder
     idPhotoKey?: SortOrder
+    passportPhotoUrl?: SortOrder
+    passportPhotoKey?: SortOrder
+    proofOfAddressUrl?: SortOrder
+    proofOfAddressKey?: SortOrder
+    disability?: SortOrder
+    preferredLanguage?: SortOrder
+    previousVoterCard?: SortOrder
+    applicationRef?: SortOrder
     status?: SortOrder
+    submittedAt?: SortOrder
     reviewNotes?: SortOrder
     reviewedById?: SortOrder
     reviewedAt?: SortOrder
+    reviewStartedAt?: SortOrder
+    estimatedCompletion?: SortOrder
+    documentVerified?: SortOrder
+    verificationNotes?: SortOrder
     voterCardId?: SortOrder
     voterCardPdfUrl?: SortOrder
     voterCardPdfKey?: SortOrder
-    submittedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5958,6 +6435,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -6199,6 +6684,10 @@ export namespace Prisma {
     set?: $Enums.ApplicationStatus
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type UserUpdateOneRequiredWithoutApplicationNestedInput = {
     create?: XOR<UserCreateWithoutApplicationInput, UserUncheckedCreateWithoutApplicationInput>
     connectOrCreate?: UserCreateOrConnectWithoutApplicationInput
@@ -6396,6 +6885,11 @@ export namespace Prisma {
     not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedEnumGenderWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
@@ -6414,6 +6908,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -6441,26 +6943,42 @@ export namespace Prisma {
 
   export type VoterApplicationCreateWithoutUserInput = {
     id?: string
+    surname: string
     firstName: string
-    lastName: string
     middleName?: string | null
     dateOfBirth: Date | string
     gender: $Enums.Gender
-    email: string
     phoneNumber: string
-    address: string
-    city: string
+    email: string
+    occupation: string
+    nin?: string | null
     state: string
-    zipCode: string
+    lga: string
+    ward: string
+    pollingUnit?: string | null
+    streetAddress: string
+    landmark?: string | null
     idPhotoUrl: string
     idPhotoKey: string
+    passportPhotoUrl: string
+    passportPhotoKey: string
+    proofOfAddressUrl?: string | null
+    proofOfAddressKey?: string | null
+    disability?: string | null
+    preferredLanguage?: string
+    previousVoterCard?: string | null
+    applicationRef: string
     status?: $Enums.ApplicationStatus
+    submittedAt?: Date | string | null
     reviewNotes?: string | null
     reviewedAt?: Date | string | null
+    reviewStartedAt?: Date | string | null
+    estimatedCompletion?: Date | string | null
+    documentVerified?: boolean
+    verificationNotes?: string | null
     voterCardId?: string | null
     voterCardPdfUrl?: string | null
     voterCardPdfKey?: string | null
-    submittedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reviewedBy?: UserCreateNestedOneWithoutApprovedApplicationsInput
@@ -6468,27 +6986,43 @@ export namespace Prisma {
 
   export type VoterApplicationUncheckedCreateWithoutUserInput = {
     id?: string
+    surname: string
     firstName: string
-    lastName: string
     middleName?: string | null
     dateOfBirth: Date | string
     gender: $Enums.Gender
-    email: string
     phoneNumber: string
-    address: string
-    city: string
+    email: string
+    occupation: string
+    nin?: string | null
     state: string
-    zipCode: string
+    lga: string
+    ward: string
+    pollingUnit?: string | null
+    streetAddress: string
+    landmark?: string | null
     idPhotoUrl: string
     idPhotoKey: string
+    passportPhotoUrl: string
+    passportPhotoKey: string
+    proofOfAddressUrl?: string | null
+    proofOfAddressKey?: string | null
+    disability?: string | null
+    preferredLanguage?: string
+    previousVoterCard?: string | null
+    applicationRef: string
     status?: $Enums.ApplicationStatus
+    submittedAt?: Date | string | null
     reviewNotes?: string | null
     reviewedById?: string | null
     reviewedAt?: Date | string | null
+    reviewStartedAt?: Date | string | null
+    estimatedCompletion?: Date | string | null
+    documentVerified?: boolean
+    verificationNotes?: string | null
     voterCardId?: string | null
     voterCardPdfUrl?: string | null
     voterCardPdfKey?: string | null
-    submittedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6500,26 +7034,42 @@ export namespace Prisma {
 
   export type VoterApplicationCreateWithoutReviewedByInput = {
     id?: string
+    surname: string
     firstName: string
-    lastName: string
     middleName?: string | null
     dateOfBirth: Date | string
     gender: $Enums.Gender
-    email: string
     phoneNumber: string
-    address: string
-    city: string
+    email: string
+    occupation: string
+    nin?: string | null
     state: string
-    zipCode: string
+    lga: string
+    ward: string
+    pollingUnit?: string | null
+    streetAddress: string
+    landmark?: string | null
     idPhotoUrl: string
     idPhotoKey: string
+    passportPhotoUrl: string
+    passportPhotoKey: string
+    proofOfAddressUrl?: string | null
+    proofOfAddressKey?: string | null
+    disability?: string | null
+    preferredLanguage?: string
+    previousVoterCard?: string | null
+    applicationRef: string
     status?: $Enums.ApplicationStatus
+    submittedAt?: Date | string | null
     reviewNotes?: string | null
     reviewedAt?: Date | string | null
+    reviewStartedAt?: Date | string | null
+    estimatedCompletion?: Date | string | null
+    documentVerified?: boolean
+    verificationNotes?: string | null
     voterCardId?: string | null
     voterCardPdfUrl?: string | null
     voterCardPdfKey?: string | null
-    submittedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutApplicationInput
@@ -6528,26 +7078,42 @@ export namespace Prisma {
   export type VoterApplicationUncheckedCreateWithoutReviewedByInput = {
     id?: string
     userId: string
+    surname: string
     firstName: string
-    lastName: string
     middleName?: string | null
     dateOfBirth: Date | string
     gender: $Enums.Gender
-    email: string
     phoneNumber: string
-    address: string
-    city: string
+    email: string
+    occupation: string
+    nin?: string | null
     state: string
-    zipCode: string
+    lga: string
+    ward: string
+    pollingUnit?: string | null
+    streetAddress: string
+    landmark?: string | null
     idPhotoUrl: string
     idPhotoKey: string
+    passportPhotoUrl: string
+    passportPhotoKey: string
+    proofOfAddressUrl?: string | null
+    proofOfAddressKey?: string | null
+    disability?: string | null
+    preferredLanguage?: string
+    previousVoterCard?: string | null
+    applicationRef: string
     status?: $Enums.ApplicationStatus
+    submittedAt?: Date | string | null
     reviewNotes?: string | null
     reviewedAt?: Date | string | null
+    reviewStartedAt?: Date | string | null
+    estimatedCompletion?: Date | string | null
+    documentVerified?: boolean
+    verificationNotes?: string | null
     voterCardId?: string | null
     voterCardPdfUrl?: string | null
     voterCardPdfKey?: string | null
-    submittedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6607,26 +7173,42 @@ export namespace Prisma {
 
   export type VoterApplicationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    occupation?: StringFieldUpdateOperationsInput | string
+    nin?: NullableStringFieldUpdateOperationsInput | string | null
     state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    lga?: StringFieldUpdateOperationsInput | string
+    ward?: StringFieldUpdateOperationsInput | string
+    pollingUnit?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
     idPhotoUrl?: StringFieldUpdateOperationsInput | string
     idPhotoKey?: StringFieldUpdateOperationsInput | string
+    passportPhotoUrl?: StringFieldUpdateOperationsInput | string
+    passportPhotoKey?: StringFieldUpdateOperationsInput | string
+    proofOfAddressUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfAddressKey?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
+    previousVoterCard?: NullableStringFieldUpdateOperationsInput | string | null
+    applicationRef?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedCompletion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documentVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardId?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedBy?: UserUpdateOneWithoutApprovedApplicationsNestedInput
@@ -6634,27 +7216,43 @@ export namespace Prisma {
 
   export type VoterApplicationUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    occupation?: StringFieldUpdateOperationsInput | string
+    nin?: NullableStringFieldUpdateOperationsInput | string | null
     state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    lga?: StringFieldUpdateOperationsInput | string
+    ward?: StringFieldUpdateOperationsInput | string
+    pollingUnit?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
     idPhotoUrl?: StringFieldUpdateOperationsInput | string
     idPhotoKey?: StringFieldUpdateOperationsInput | string
+    passportPhotoUrl?: StringFieldUpdateOperationsInput | string
+    passportPhotoKey?: StringFieldUpdateOperationsInput | string
+    proofOfAddressUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfAddressKey?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
+    previousVoterCard?: NullableStringFieldUpdateOperationsInput | string | null
+    applicationRef?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedCompletion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documentVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardId?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6681,27 +7279,43 @@ export namespace Prisma {
     NOT?: VoterApplicationScalarWhereInput | VoterApplicationScalarWhereInput[]
     id?: StringFilter<"VoterApplication"> | string
     userId?: StringFilter<"VoterApplication"> | string
+    surname?: StringFilter<"VoterApplication"> | string
     firstName?: StringFilter<"VoterApplication"> | string
-    lastName?: StringFilter<"VoterApplication"> | string
     middleName?: StringNullableFilter<"VoterApplication"> | string | null
     dateOfBirth?: DateTimeFilter<"VoterApplication"> | Date | string
     gender?: EnumGenderFilter<"VoterApplication"> | $Enums.Gender
-    email?: StringFilter<"VoterApplication"> | string
     phoneNumber?: StringFilter<"VoterApplication"> | string
-    address?: StringFilter<"VoterApplication"> | string
-    city?: StringFilter<"VoterApplication"> | string
+    email?: StringFilter<"VoterApplication"> | string
+    occupation?: StringFilter<"VoterApplication"> | string
+    nin?: StringNullableFilter<"VoterApplication"> | string | null
     state?: StringFilter<"VoterApplication"> | string
-    zipCode?: StringFilter<"VoterApplication"> | string
+    lga?: StringFilter<"VoterApplication"> | string
+    ward?: StringFilter<"VoterApplication"> | string
+    pollingUnit?: StringNullableFilter<"VoterApplication"> | string | null
+    streetAddress?: StringFilter<"VoterApplication"> | string
+    landmark?: StringNullableFilter<"VoterApplication"> | string | null
     idPhotoUrl?: StringFilter<"VoterApplication"> | string
     idPhotoKey?: StringFilter<"VoterApplication"> | string
+    passportPhotoUrl?: StringFilter<"VoterApplication"> | string
+    passportPhotoKey?: StringFilter<"VoterApplication"> | string
+    proofOfAddressUrl?: StringNullableFilter<"VoterApplication"> | string | null
+    proofOfAddressKey?: StringNullableFilter<"VoterApplication"> | string | null
+    disability?: StringNullableFilter<"VoterApplication"> | string | null
+    preferredLanguage?: StringFilter<"VoterApplication"> | string
+    previousVoterCard?: StringNullableFilter<"VoterApplication"> | string | null
+    applicationRef?: StringFilter<"VoterApplication"> | string
     status?: EnumApplicationStatusFilter<"VoterApplication"> | $Enums.ApplicationStatus
+    submittedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
     reviewNotes?: StringNullableFilter<"VoterApplication"> | string | null
     reviewedById?: StringNullableFilter<"VoterApplication"> | string | null
     reviewedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
+    reviewStartedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
+    estimatedCompletion?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
+    documentVerified?: BoolFilter<"VoterApplication"> | boolean
+    verificationNotes?: StringNullableFilter<"VoterApplication"> | string | null
     voterCardId?: StringNullableFilter<"VoterApplication"> | string | null
     voterCardPdfUrl?: StringNullableFilter<"VoterApplication"> | string | null
     voterCardPdfKey?: StringNullableFilter<"VoterApplication"> | string | null
-    submittedAt?: DateTimeNullableFilter<"VoterApplication"> | Date | string | null
     createdAt?: DateTimeFilter<"VoterApplication"> | Date | string
     updatedAt?: DateTimeFilter<"VoterApplication"> | Date | string
   }
@@ -6944,26 +7558,42 @@ export namespace Prisma {
   export type VoterApplicationCreateManyReviewedByInput = {
     id?: string
     userId: string
+    surname: string
     firstName: string
-    lastName: string
     middleName?: string | null
     dateOfBirth: Date | string
     gender: $Enums.Gender
-    email: string
     phoneNumber: string
-    address: string
-    city: string
+    email: string
+    occupation: string
+    nin?: string | null
     state: string
-    zipCode: string
+    lga: string
+    ward: string
+    pollingUnit?: string | null
+    streetAddress: string
+    landmark?: string | null
     idPhotoUrl: string
     idPhotoKey: string
+    passportPhotoUrl: string
+    passportPhotoKey: string
+    proofOfAddressUrl?: string | null
+    proofOfAddressKey?: string | null
+    disability?: string | null
+    preferredLanguage?: string
+    previousVoterCard?: string | null
+    applicationRef: string
     status?: $Enums.ApplicationStatus
+    submittedAt?: Date | string | null
     reviewNotes?: string | null
     reviewedAt?: Date | string | null
+    reviewStartedAt?: Date | string | null
+    estimatedCompletion?: Date | string | null
+    documentVerified?: boolean
+    verificationNotes?: string | null
     voterCardId?: string | null
     voterCardPdfUrl?: string | null
     voterCardPdfKey?: string | null
-    submittedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6981,26 +7611,42 @@ export namespace Prisma {
 
   export type VoterApplicationUpdateWithoutReviewedByInput = {
     id?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    occupation?: StringFieldUpdateOperationsInput | string
+    nin?: NullableStringFieldUpdateOperationsInput | string | null
     state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    lga?: StringFieldUpdateOperationsInput | string
+    ward?: StringFieldUpdateOperationsInput | string
+    pollingUnit?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
     idPhotoUrl?: StringFieldUpdateOperationsInput | string
     idPhotoKey?: StringFieldUpdateOperationsInput | string
+    passportPhotoUrl?: StringFieldUpdateOperationsInput | string
+    passportPhotoKey?: StringFieldUpdateOperationsInput | string
+    proofOfAddressUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfAddressKey?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
+    previousVoterCard?: NullableStringFieldUpdateOperationsInput | string | null
+    applicationRef?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedCompletion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documentVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardId?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutApplicationNestedInput
@@ -7009,26 +7655,42 @@ export namespace Prisma {
   export type VoterApplicationUncheckedUpdateWithoutReviewedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    occupation?: StringFieldUpdateOperationsInput | string
+    nin?: NullableStringFieldUpdateOperationsInput | string | null
     state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    lga?: StringFieldUpdateOperationsInput | string
+    ward?: StringFieldUpdateOperationsInput | string
+    pollingUnit?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
     idPhotoUrl?: StringFieldUpdateOperationsInput | string
     idPhotoKey?: StringFieldUpdateOperationsInput | string
+    passportPhotoUrl?: StringFieldUpdateOperationsInput | string
+    passportPhotoKey?: StringFieldUpdateOperationsInput | string
+    proofOfAddressUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfAddressKey?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
+    previousVoterCard?: NullableStringFieldUpdateOperationsInput | string | null
+    applicationRef?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedCompletion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documentVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardId?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7036,26 +7698,42 @@ export namespace Prisma {
   export type VoterApplicationUncheckedUpdateManyWithoutReviewedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
     middleName?: NullableStringFieldUpdateOperationsInput | string | null
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    city?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    occupation?: StringFieldUpdateOperationsInput | string
+    nin?: NullableStringFieldUpdateOperationsInput | string | null
     state?: StringFieldUpdateOperationsInput | string
-    zipCode?: StringFieldUpdateOperationsInput | string
+    lga?: StringFieldUpdateOperationsInput | string
+    ward?: StringFieldUpdateOperationsInput | string
+    pollingUnit?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
     idPhotoUrl?: StringFieldUpdateOperationsInput | string
     idPhotoKey?: StringFieldUpdateOperationsInput | string
+    passportPhotoUrl?: StringFieldUpdateOperationsInput | string
+    passportPhotoKey?: StringFieldUpdateOperationsInput | string
+    proofOfAddressUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfAddressKey?: NullableStringFieldUpdateOperationsInput | string | null
+    disability?: NullableStringFieldUpdateOperationsInput | string | null
+    preferredLanguage?: StringFieldUpdateOperationsInput | string
+    previousVoterCard?: NullableStringFieldUpdateOperationsInput | string | null
+    applicationRef?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedCompletion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    documentVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationNotes?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardId?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     voterCardPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

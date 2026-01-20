@@ -10,9 +10,9 @@ const globalForPrisma = globalThis as unknown as {
 
 // Prisma v7 with Prisma Postgres (managed database service)
 // Use accelerateUrl for connection pooling and proxying
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+export const db = globalForPrisma.prisma ?? new PrismaClient({
+  log: process.env.NODE_ENV === 'development' ? ['error'] : ['error'],
   accelerateUrl: process.env.PRISMA_DATABASE_URL,
 })
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = db

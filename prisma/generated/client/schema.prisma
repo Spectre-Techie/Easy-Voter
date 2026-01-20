@@ -45,31 +45,54 @@ model VoterApplication {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  // Personal Information
+  // Personal Information (Nigerian format)
+  surname     String // Last name
   firstName   String
-  lastName    String
   middleName  String?
   dateOfBirth DateTime
   gender      Gender
-
-  // Contact Information
+  phoneNumber String // Nigerian format: +234...
   email       String
-  phoneNumber String
-  address     String
-  city        String
-  state       String
-  zipCode     String
+  occupation  String
+  nin         String? // National Identity Number (11 digits)
+
+  // Address Information (Nigerian-specific)
+  state         String // 36 states + FCT
+  lga           String // Local Government Area
+  ward          String
+  pollingUnit   String? // Auto-suggested based on address
+  streetAddress String
+  landmark      String? // For easy location
 
   // Document Upload
-  idPhotoUrl String
-  idPhotoKey String // Storage key for deletion/management
+  idPhotoUrl        String // Valid ID (NIN Slip, Driver's License, Passport)
+  idPhotoKey        String // Storage key for deletion/management
+  passportPhotoUrl  String // Passport photograph
+  passportPhotoKey  String
+  proofOfAddressUrl String? // Optional: Utility bill, Tenancy agreement
+  proofOfAddressKey String?
 
-  // Application Status & Review
-  status       ApplicationStatus @default(PENDING)
-  reviewNotes  String?
-  reviewedById String?
-  reviewedBy   User?             @relation("ApprovedBy", fields: [reviewedById], references: [id])
-  reviewedAt   DateTime?
+  // Additional Information
+  disability        String? @default("None") // None, Visual, Hearing, Mobility, Other
+  preferredLanguage String  @default("English") // English, Hausa, Yoruba, Igbo, Pidgin
+  previousVoterCard String? // For transfers
+
+  // Application Tracking
+  applicationRef String            @unique // e.g., EV-2024-001234
+  status         ApplicationStatus @default(DRAFT)
+  submittedAt    DateTime?
+
+  // Review Information
+  reviewNotes         String?
+  reviewedById        String?
+  reviewedBy          User?     @relation("ApprovedBy", fields: [reviewedById], references: [id])
+  reviewedAt          DateTime?
+  reviewStartedAt     DateTime?
+  estimatedCompletion DateTime?
+
+  // Document Verification
+  documentVerified  Boolean @default(false)
+  verificationNotes String?
 
   // Voter Card Information
   voterCardId     String? @unique
@@ -77,14 +100,14 @@ model VoterApplication {
   voterCardPdfKey String?
 
   // Timestamps
-  submittedAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  // Indexes for performance optimization
-  @@index([status])
-  @@index([createdAt])
   @@index([userId])
+  @@index([applicationRef])
+  @@index([status])
+  @@index([state, lga])
+  @@index([createdAt])
   @@index([voterCardId])
 }
 
@@ -98,8 +121,9 @@ enum Gender {
 enum ApplicationStatus {
   DRAFT // User started but hasn't submitted
   PENDING // Submitted, awaiting review
-  APPROVED // Approved by admin
-  REJECTED // Rejected by admin
+  UNDER_REVIEW // Being reviewed by admin
+  APPROVED // Approved, voter card generated
+  REJECTED // Rejected with reason
 }
 
 // Audit Log model - tracks all important actions for security

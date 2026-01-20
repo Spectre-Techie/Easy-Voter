@@ -52,15 +52,19 @@ export const updatePasswordSchema = z.object({
 // VOTER APPLICATION SCHEMAS
 // ============================================
 
-// Step 1: Personal Information
+// Step 1: Personal Information (Nigerian format)
 export const personalInfoSchema = z.object({
+    surname: z.string().min(2, "Surname must be at least 2 characters"),
     firstName: z.string().min(2, "First name must be at least 2 characters"),
-    lastName: z.string().min(2, "Last name must be at least 2 characters"),
     middleName: z.string().optional(),
-    dateOfBirth: z.date({ message: "Date of birth is required" }),
+    dateOfBirth: z.coerce.date({ message: "Date of birth is required" }),
     gender: z.enum(["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"], {
         message: "Please select a gender",
     }),
+    phoneNumber: z.string().regex(/^\+234[0-9]{10}$/, "Phone number must be in format +234XXXXXXXXXX"),
+    email: z.string().email("Invalid email address"),
+    occupation: z.string().min(2, "Occupation is required"),
+    nin: z.string().regex(/^[0-9]{11}$/, "NIN must be 11 digits").optional(),
 }).refine((data) => {
     // Must be 18 or older
     const today = new Date()
@@ -78,32 +82,38 @@ export const personalInfoSchema = z.object({
     path: ["dateOfBirth"],
 })
 
-// Step 2: Contact Details
-export const contactDetailsSchema = z.object({
-    email: z.string().email("Invalid email address"),
-    phoneNumber: z
-        .string()
-        .regex(/^(\+1|1)?[\s.-]?\(?[2-9]\d{2}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
-            "Please enter a valid phone number (e.g., (555) 123-4567)"
-        ),
-    address: z.string().min(5, "Address must be at least 5 characters"),
-    city: z.string().min(2, "City must be at least 2 characters"),
-    state: z.string().length(2, "Please select a state"),
-    zipCode: z
-        .string()
-        .regex(/^\d{5}(-\d{4})?$/, "Please enter a valid ZIP code (e.g., 12345 or 12345-6789)"),
+// Step 2: Address Information (Nigerian-specific)
+export const addressInfoSchema = z.object({
+    state: z.string().min(1, "Please select your state"),
+    lga: z.string().min(1, "Please select your LGA"),
+    ward: z.string().min(1, "Please select your ward"),
+    pollingUnit: z.string().optional(),
+    streetAddress: z.string().min(5, "Street address must be at least 5 characters"),
+    landmark: z.string().optional(),
 })
 
-// Step 3: Document Upload (handled separately with file upload)
+// Step 3: Document Upload
 export const documentUploadSchema = z.object({
-    idPhotoUrl: z.string().url("Invalid photo URL"),
-    idPhotoKey: z.string().min(1, "Photo key is required"),
+    idPhotoUrl: z.string().url("Invalid ID photo URL"),
+    idPhotoKey: z.string().min(1, "ID photo key is required"),
+    passportPhotoUrl: z.string().url("Invalid passport photo URL"),
+    passportPhotoKey: z.string().min(1, "Passport photo key is required"),
+    proofOfAddressUrl: z.string().url().optional(),
+    proofOfAddressKey: z.string().optional(),
+})
+
+// Step 4: Additional Information
+export const additionalInfoSchema = z.object({
+    disability: z.enum(["None", "Visual", "Hearing", "Mobility", "Other"]).default("None"),
+    preferredLanguage: z.enum(["English", "Hausa", "Yoruba", "Igbo", "Pidgin"]).default("English"),
+    previousVoterCard: z.string().optional(),
 })
 
 // Complete voter application (all steps combined)
 export const voterApplicationSchema = personalInfoSchema
-    .merge(contactDetailsSchema)
+    .merge(addressInfoSchema)
     .merge(documentUploadSchema)
+    .merge(additionalInfoSchema)
 
 // ============================================
 // ADMIN SCHEMAS
@@ -144,8 +154,9 @@ export type LoginInput = z.infer<typeof loginSchema>
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>
 export type UpdatePasswordInput = z.infer<typeof updatePasswordSchema>
 export type PersonalInfoInput = z.infer<typeof personalInfoSchema>
-export type ContactDetailsInput = z.infer<typeof contactDetailsSchema>
+export type AddressInfoInput = z.infer<typeof addressInfoSchema>
 export type DocumentUploadInput = z.infer<typeof documentUploadSchema>
+export type AdditionalInfoInput = z.infer<typeof additionalInfoSchema>
 export type VoterApplicationInput = z.infer<typeof voterApplicationSchema>
 export type ReviewApplicationInput = z.infer<typeof reviewApplicationSchema>
 export type ApplicationFilterInput = z.infer<typeof applicationFilterSchema>
