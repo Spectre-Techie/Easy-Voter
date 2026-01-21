@@ -71,6 +71,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }),
     ],
     callbacks: {
+        async redirect({ url, baseUrl }) {
+            // Allow relative URLs
+            if (url.startsWith("/")) {
+                return `${baseUrl}${url}`
+            }
+            // Allow same-origin URLs
+            else if (new URL(url).origin === baseUrl) {
+                return url
+            }
+            // Default to homepage
+            return baseUrl
+        },
+        async signIn({ user }) {
+            // Allow sign in
+            return true
+        },
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id
@@ -89,3 +105,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     secret: process.env.NEXTAUTH_SECRET,
     debug: process.env.NODE_ENV === "development",
 })
+
+// Helper function to check if user is admin
+export function isAdmin(session: any): boolean {
+    return session?.user?.role === "ADMIN" || session?.user?.role === "SUPER_ADMIN"
+}

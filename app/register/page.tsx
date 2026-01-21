@@ -69,7 +69,8 @@ export default function RegisterPage() {
             })
 
             if (signInResult?.ok) {
-                router.push("/dashboard")
+                // Redirect to dashboard
+                router.push('/dashboard')
                 router.refresh()
             } else {
                 // If auto-login fails, redirect to login page

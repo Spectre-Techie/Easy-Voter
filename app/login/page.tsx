@@ -56,6 +56,7 @@ export default function LoginPage() {
             }
 
             if (result?.ok) {
+                // Redirect to callback URL or dashboard
                 router.push(callbackUrl)
                 router.refresh()
             }

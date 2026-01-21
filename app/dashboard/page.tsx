@@ -15,6 +15,11 @@ export default async function DashboardPage() {
         redirect("/login")
     }
 
+    // Redirect admins to admin dashboard
+    if (session.user.role === "ADMIN" || session.user.role === "SUPER_ADMIN") {
+        redirect("/admin")
+    }
+
     // Get user's application if it exists
     const application = await db.voterApplication.findUnique({
         where: {
