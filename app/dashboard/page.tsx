@@ -1,5 +1,3 @@
-"use client"
-
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { db } from "@/lib/db"
@@ -13,6 +11,8 @@ import { StatusCard } from "@/components/dashboard/status-card"
 import { ApplicationDetails } from "@/components/dashboard/application-details"
 import { InstallPrompt } from "@/components/pwa/install-prompt"
 import DashboardClient from "./dashboard-client"
+
+export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
     const session = await auth()

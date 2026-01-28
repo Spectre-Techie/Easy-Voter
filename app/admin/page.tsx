@@ -6,6 +6,8 @@ import { FileText, CheckCircle, XCircle, Clock } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
+export const dynamic = 'force-dynamic'
+
 export default async function AdminDashboard() {
     const session = await auth()
 
@@ -131,10 +133,10 @@ export default async function AdminDashboard() {
                                     <div className="flex items-center gap-4">
                                         <span
                                             className={`px-3 py-1 rounded-full text-xs font-medium ${application.status === "PENDING"
-                                                    ? "bg-yellow-100 text-yellow-800"
-                                                    : application.status === "APPROVED"
-                                                        ? "bg-green-100 text-green-800"
-                                                        : "bg-red-100 text-red-800"
+                                                ? "bg-yellow-100 text-yellow-800"
+                                                : application.status === "APPROVED"
+                                                    ? "bg-green-100 text-green-800"
+                                                    : "bg-red-100 text-red-800"
                                                 }`}
                                         >
                                             {application.status}

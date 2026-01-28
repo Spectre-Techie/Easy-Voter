@@ -5,6 +5,8 @@ import { LayoutDashboard, FileText, Settings, LogOut, Users } from "lucide-react
 import { Button } from "@/components/ui/button"
 import AdminLogoutButton from "@/components/admin/admin-logout-button"
 
+export const dynamic = 'force-dynamic'
+
 export default async function AdminLayout({
     children,
 }: {

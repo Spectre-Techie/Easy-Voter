@@ -6,6 +6,8 @@ import { PersonalInfoSection } from "@/components/profile/personal-info-section"
 import { ApplicationInfoSection } from "@/components/profile/application-info-section"
 import { SettingsSection } from "@/components/profile/settings-section"
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProfilePage() {
     const session = await auth()
 
