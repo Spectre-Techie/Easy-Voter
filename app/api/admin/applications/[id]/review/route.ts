@@ -66,6 +66,8 @@ export async function POST(
             )
         }
 
+        console.log("📝 Updating application status to:", validatedData.action)
+
         // Update application status
         const updatedApplication = await db.voterApplication.update({
             where: { id },
@@ -77,7 +79,115 @@ export async function POST(
             },
         })
 
-        // TODO: Send email notification to user about the decision
+        console.log("✅ Application status updated to:", updatedApplication.status)
+        console.log("🔍 Checking if action is APPROVE:", validatedData.action, "===", "APPROVE", "?", validatedData.action === "APPROVE")
+
+        // Send email notification to user
+        try {
+            console.log("📧 Attempting to send email notification...")
+            console.log("Recipient:", updatedApplication.email)
+            console.log("Status:", updatedApplication.status)
+
+            const { sendEmail, getApplicationApprovedEmail, getApplicationRejectedEmail } = await import("@/lib/email")
+
+            const emailTemplate = validatedData.action === "APPROVE"
+                ? getApplicationApprovedEmail({
+                    name: `${updatedApplication.firstName} ${updatedApplication.surname}`,
+                    applicationRef: updatedApplication.applicationRef,
+                })
+                : getApplicationRejectedEmail({
+                    name: `${updatedApplication.firstName} ${updatedApplication.surname}`,
+                    applicationRef: updatedApplication.applicationRef,
+                    reason: validatedData.reviewNotes || "Please review your application details and documents.",
+                })
+
+            console.log("📨 Sending:", emailTemplate.subject)
+
+            const result = await sendEmail({
+                to: updatedApplication.email,
+                subject: emailTemplate.subject,
+                html: emailTemplate.html,
+            })
+
+            console.log("✅ Email sent:", result)
+        } catch (emailError) {
+            // Log email error but don't fail the request
+            console.error("❌ Email error:", emailError)
+            if (emailError instanceof Error) {
+                console.error("Message:", emailError.message)
+            }
+        }
+
+        console.log("🔍 About to check if should generate PDF...")
+        console.log("   validatedData.action:", validatedData.action)
+        console.log("   Is APPROVE?:", validatedData.action === "APPROVE")
+
+        // Generate voter card PDF if approved
+        if (validatedData.action === "APPROVE") {
+            console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+            console.log("🎫 ENTERED PDF GENERATION BLOCK!")
+            console.log("   Application ID:", updatedApplication.id)
+            console.log("   User:", `${updatedApplication.firstName} ${updatedApplication.surname}`)
+            console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+
+            try {
+                console.log("📦 Importing voter-card module...")
+                const { generateVoterCard } = await import("@/lib/voter-card-react")
+                console.log("✅ Module imported successfully")
+
+                const voterCardData = {
+                    firstName: updatedApplication.firstName,
+                    middleName: updatedApplication.middleName || undefined,
+                    surname: updatedApplication.surname,
+                    dateOfBirth: updatedApplication.dateOfBirth,
+                    gender: updatedApplication.gender,
+                    state: updatedApplication.state,
+                    lga: updatedApplication.lga,
+                    ward: updatedApplication.ward || "Ward 01",
+                    vin: updatedApplication.id,
+                    applicationRef: updatedApplication.applicationRef,
+                    passportPhotoUrl: updatedApplication.passportPhotoUrl,
+                    issueDate: new Date(),
+                }
+
+                console.log("📋 Voter card data prepared:")
+                console.log(JSON.stringify(voterCardData, null, 2))
+                console.log("📞 Calling generateVoterCard...")
+
+                const pdfUrl = await generateVoterCard(voterCardData, updatedApplication.id)
+
+                console.log("💾 PDF URL received:", pdfUrl)
+                console.log("💾 Updating database with PDF URL...")
+
+                // Update application with PDF URL
+                await db.voterApplication.update({
+                    where: { id: updatedApplication.id },
+                    data: {
+                        voterCardPdfUrl: pdfUrl,
+                        voterCardId: `VC-${updatedApplication.applicationRef}`,
+                    },
+                })
+
+                console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+                console.log("✅ PDF GENERATION COMPLETE!")
+                console.log("   PDF URL:", pdfUrl)
+                console.log("   Card ID:", `VC-${updatedApplication.applicationRef}`)
+                console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+            } catch (pdfError) {
+                // Log PDF generation error but don't fail the request
+                console.error("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+                console.error("❌ PDF GENERATION FAILED!")
+                console.error("   Error:", pdfError)
+                if (pdfError instanceof Error) {
+                    console.error("   Message:", pdfError.message)
+                    console.error("   Stack:", pdfError.stack)
+                }
+                console.error("   Note: Approval succeeded, but PDF will be generated on download")
+                console.error("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+            }
+        } else {
+            console.log("⏭️ Skipping PDF generation (action is not APPROVE)")
+        }
 
         return NextResponse.json({
             success: true,

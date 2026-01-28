@@ -3,10 +3,12 @@ import { redirect } from "next/navigation"
 import { db } from "@/lib/db"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { signOut } from "@/lib/auth"
-import { FileText, LogOut, User } from "lucide-react"
+import { FileText, LogOut, Sparkles, ArrowRight } from "lucide-react"
+import { ApplicationTimeline } from "@/components/dashboard/application-timeline"
+import { StatusCard } from "@/components/dashboard/status-card"
+import { ApplicationDetails } from "@/components/dashboard/application-details"
 
 export default async function DashboardPage() {
     const session = await auth()
@@ -27,36 +29,24 @@ export default async function DashboardPage() {
         },
     })
 
-    const getStatusBadge = (status: string) => {
-        const variants: Record<string, { variant: "default" | "destructive" | "secondary" | "outline", color: string }> = {
-            DRAFT: { variant: "secondary", color: "text-gray-600" },
-            PENDING: { variant: "default", color: "text-orange-600" },
-            APPROVED: { variant: "default", color: "text-green-600" },
-            REJECTED: { variant: "destructive", color: "text-red-600" },
-        }
-
-        const config = variants[status] || variants.DRAFT
-
-        return (
-            <Badge variant={config.variant} className={config.color}>
-                {status}
-            </Badge>
-        )
-    }
-
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
             {/* Header */}
-            <header className="border-b bg-white/80 backdrop-blur-sm">
+            <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur-md shadow-sm">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+                        <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
                             <span className="text-white font-bold text-lg">EV</span>
                         </div>
-                        <span className="font-bold text-xl">EasyVoter</span>
+                        <span className="font-bold text-xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                            EasyVoter
+                        </span>
                     </div>
                     <div className="flex items-center gap-4">
-                        <span className="text-sm text-muted-foreground">{session.user.email}</span>
+                        <div className="hidden sm:block text-right">
+                            <p className="text-sm font-medium text-gray-900">{session.user.email}</p>
+                            <p className="text-xs text-muted-foreground">Voter Account</p>
+                        </div>
                         <form
                             action={async () => {
                                 "use server"
@@ -65,119 +55,149 @@ export default async function DashboardPage() {
                         >
                             <Button variant="ghost" size="sm" type="submit">
                                 <LogOut className="w-4 h-4 mr-2" />
-                                Sign Out
+                                <span className="hidden sm:inline">Sign Out</span>
                             </Button>
                         </form>
                     </div>
                 </div>
             </header>
 
-            <div className="container mx-auto px-4 py-8">
-                <div className="max-w-4xl mx-auto space-y-6">
+            <div className="container mx-auto px-4 py-8 md:py-12">
+                <div className="max-w-6xl mx-auto space-y-8">
                     {/* Welcome Section */}
-                    <div>
-                        <h1 className="text-3xl font-bold">Welcome back!</h1>
-                        <p className="text-muted-foreground mt-1">
-                            Manage your voter registration application
+                    <div className="space-y-2">
+                        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                            Welcome back! 👋
+                        </h1>
+                        <p className="text-muted-foreground text-lg">
+                            {application
+                                ? "Track your voter registration application"
+                                : "Start your voter registration journey"}
                         </p>
                     </div>
 
-                    {/* Application Status Card */}
                     {application ? (
-                        <Card>
-                            <CardHeader>
-                                <div className="flex items-center justify-between">
-                                    <div>
-                                        <CardTitle>Your Application</CardTitle>
-                                        <CardDescription>Application ID: {application.id.slice(0, 8)}</CardDescription>
-                                    </div>
-                                    {getStatusBadge(application.status)}
-                                </div>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <p className="text-sm text-muted-foreground">Name</p>
-                                        <p className="font-medium">{application.firstName} {application.surname}</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-muted-foreground">Submitted</p>
-                                        <p className="font-medium">
-                                            {application.submittedAt
-                                                ? new Date(application.submittedAt).toLocaleDateString()
-                                                : "Not submitted"}
-                                        </p>
-                                    </div>
-                                </div>
+                        <div className="grid lg:grid-cols-3 gap-6">
+                            {/* Main Content - Left Side */}
+                            <div className="lg:col-span-2 space-y-6">
+                                {/* Status Card */}
+                                <StatusCard application={application} />
 
-                                {application.status === "APPROVED" && application.voterCardPdfUrl && (
-                                    <div className="pt-4 border-t">
-                                        <Link href={`/api/voter-card/${application.id}`} target="_blank">
-                                            <Button className="w-full">
-                                                <FileText className="w-4 h-4 mr-2" />
-                                                Download Voter Card
-                                            </Button>
-                                        </Link>
-                                    </div>
-                                )}
+                                {/* Application Details */}
+                                <ApplicationDetails application={application} />
+                            </div>
 
-                                {application.status === "REJECTED" && application.reviewNotes && (
-                                    <div className="pt-4 border-t">
-                                        <p className="text-sm font-medium text-red-600">Rejection Reason:</p>
-                                        <p className="text-sm text-muted-foreground mt-1">
-                                            {application.reviewNotes}
-                                        </p>
-                                    </div>
-                                )}
+                            {/* Sidebar - Right Side */}
+                            <div className="space-y-6">
+                                {/* Timeline */}
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle className="text-lg">Application Timeline</CardTitle>
+                                        <CardDescription>Track your progress</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <ApplicationTimeline application={application} />
+                                    </CardContent>
+                                </Card>
 
-                                {application.status === "PENDING" && (
-                                    <div className="pt-4 border-t bg-orange-50 -mx-6 -mb-6 px-6 py-4 rounded-b-lg">
-                                        <p className="text-sm text-orange-700">
-                                            Your application is being reviewed. You'll be notified once a decision is made.
-                                        </p>
-                                    </div>
-                                )}
-                            </CardContent>
-                        </Card>
+                                {/* Quick Info */}
+                                <Card>
+                                    <CardHeader>
+                                        <CardTitle className="text-lg">Quick Info</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-3 text-sm">
+                                        <div>
+                                            <p className="text-muted-foreground">Application ID</p>
+                                            <p className="font-mono font-medium text-xs">
+                                                {application.applicationRef}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-muted-foreground">Submitted</p>
+                                            <p className="font-medium">
+                                                {application.submittedAt
+                                                    ? new Date(application.submittedAt).toLocaleDateString(
+                                                        "en-US",
+                                                        {
+                                                            month: "long",
+                                                            day: "numeric",
+                                                            year: "numeric",
+                                                        }
+                                                    )
+                                                    : "Not submitted"}
+                                            </p>
+                                        </div>
+                                        {application.reviewedAt && (
+                                            <div>
+                                                <p className="text-muted-foreground">Reviewed</p>
+                                                <p className="font-medium">
+                                                    {new Date(application.reviewedAt).toLocaleDateString(
+                                                        "en-US",
+                                                        {
+                                                            month: "long",
+                                                            day: "numeric",
+                                                            year: "numeric",
+                                                        }
+                                                    )}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </div>
                     ) : (
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>No Application Found</CardTitle>
-                                <CardDescription>
-                                    You haven't submitted a voter registration application yet
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <Link href="/apply">
-                                    <Button className="w-full">
-                                        <User className="w-4 h-4 mr-2" />
-                                        Start Voter Registration
-                                    </Button>
-                                </Link>
-                            </CardContent>
-                        </Card>
-                    )}
+                        // No Application - Enhanced Empty State
+                        <div className="max-w-2xl mx-auto">
+                            <Card className="border-2 border-dashed border-blue-200 bg-gradient-to-br from-blue-50/50 to-white">
+                                <CardContent className="pt-12 pb-12 text-center space-y-6">
+                                    <div className="mx-auto w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
+                                        <Sparkles className="w-10 h-10 text-blue-600" />
+                                    </div>
 
-                    {/* Quick Actions */}
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Quick Actions</CardTitle>
-                        </CardHeader>
-                        <CardContent className="grid gap-2">
-                            {!application && (
-                                <Link href="/apply">
-                                    <Button variant="outline" className="w-full justify-start">
-                                        <FileText className="w-4 h-4 mr-2" />
-                                        Start New Application
-                                    </Button>
-                                </Link>
-                            )}
-                            <Button variant="outline" className="w-full justify-start" disabled>
-                                <User className="w-4 h-4 mr-2" />
-                                Update Profile (Coming Soon)
-                            </Button>
-                        </CardContent>
-                    </Card>
+                                    <div className="space-y-2">
+                                        <h2 className="text-2xl font-bold text-gray-900">
+                                            Ready to Register?
+                                        </h2>
+                                        <p className="text-muted-foreground max-w-md mx-auto">
+                                            You haven't submitted a voter registration application yet.
+                                            Start your journey to becoming a registered voter today!
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-blue-50 rounded-lg p-6 text-left max-w-md mx-auto">
+                                        <h3 className="font-semibold text-blue-900 mb-3">What you'll need:</h3>
+                                        <ul className="space-y-2 text-sm text-blue-800">
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-blue-600 mt-0.5">✓</span>
+                                                <span>Valid government-issued ID (NIN, Driver's License, etc.)</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-blue-600 mt-0.5">✓</span>
+                                                <span>Recent passport photograph</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-blue-600 mt-0.5">✓</span>
+                                                <span>Proof of address (utility bill, bank statement, etc.)</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-blue-600 mt-0.5">✓</span>
+                                                <span>About 10 minutes to complete the form</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <Link href="/apply">
+                                        <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg">
+                                            <FileText className="w-5 h-5 mr-2" />
+                                            Start Voter Registration
+                                            <ArrowRight className="w-4 h-4 ml-2" />
+                                        </Button>
+                                    </Link>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
