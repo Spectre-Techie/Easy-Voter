@@ -30,7 +30,7 @@ export async function generateVoterCard(data: VoterCardData, applicationId: stri
     try {
         // Step 1: Generate QR Code
         console.log("📱 Step 1: Generating QR code...")
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+        const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/$/, '')
         const verificationUrl = `${baseUrl}/verify/${data.vin}`
         const qrCodeDataUrl = await QRCode.toDataURL(verificationUrl, {
             errorCorrectionLevel: "H",

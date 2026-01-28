@@ -435,7 +435,7 @@ export async function generateVoterCard(data: VoterCardData, applicationId: stri
 
     try {
         // Generate QR Code with production URL from env
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+        const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/$/, '')
         console.log("📱 QR Code base URL:", baseUrl)
 
         const verificationUrl = `${baseUrl}/verify/${data.vin}`

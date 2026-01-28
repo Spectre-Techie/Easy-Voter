@@ -54,7 +54,7 @@ export interface VoterCardData {
  */
 async function generateQRCode(vin: string): Promise<string> {
     try {
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL
+        const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || '').replace(/\/$/, '')
         if (!baseUrl) {
             throw new Error("NEXT_PUBLIC_APP_URL environment variable is not set")
         }
