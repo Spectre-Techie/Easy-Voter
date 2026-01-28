@@ -29,6 +29,7 @@ model User {
   application   VoterApplication?
   approvedApplications VoterApplication[] @relation("ApprovedBy")
   auditLogs     AuditLog[]
+  // notifications Notification[] // DISABLED - feature removed
   
   @@index([email])
   @@index([resetToken])
@@ -144,3 +145,31 @@ model AuditLog {
   @@index([entityId])
   @@index([createdAt])
 }
+
+// Notification model - DISABLED (to avoid database reset)
+// Uncomment when you're ready to add notifications feature
+// model Notification {
+//   id        String   @id @default(cuid())
+//   userId    String
+//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   
+//   type      NotificationType
+//   title     String
+//   message   String
+//   link      String?
+//   
+//   read      Boolean  @default(false)
+//   createdAt DateTime @default(now())
+//   
+//   @@index([userId, read])
+//   @@index([createdAt])
+// }
+
+// enum NotificationType {
+//   APPLICATION_SUBMITTED
+//   APPLICATION_APPROVED
+//   APPLICATION_REJECTED
+//   VOTER_CARD_READY
+//   SYSTEM_UPDATE
+//   SECURITY_ALERT
+// }

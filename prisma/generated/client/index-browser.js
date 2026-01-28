@@ -187,6 +187,17 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  link: 'link',
+  read: 'read',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -233,10 +244,20 @@ exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
   REJECTED: 'REJECTED'
 };
 
+exports.NotificationType = exports.$Enums.NotificationType = {
+  APPLICATION_SUBMITTED: 'APPLICATION_SUBMITTED',
+  APPLICATION_APPROVED: 'APPLICATION_APPROVED',
+  APPLICATION_REJECTED: 'APPLICATION_REJECTED',
+  VOTER_CARD_READY: 'VOTER_CARD_READY',
+  SYSTEM_UPDATE: 'SYSTEM_UPDATE',
+  SECURITY_ALERT: 'SECURITY_ALERT'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   VoterApplication: 'VoterApplication',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  Notification: 'Notification'
 };
 
 /**
