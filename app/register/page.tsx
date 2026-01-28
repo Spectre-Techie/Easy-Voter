@@ -69,16 +69,14 @@ export default function RegisterPage() {
             })
 
             if (signInResult?.ok) {
-                // Redirect to dashboard
-                router.push('/dashboard')
-                router.refresh()
+                // Use window.location.href for full page reload to ensure session is established
+                window.location.href = '/dashboard'
             } else {
                 // If auto-login fails, redirect to login page
-                router.push("/login?registered=true")
+                window.location.href = "/login?registered=true"
             }
         } catch (err) {
             setError(err instanceof Error ? err.message : "An error occurred")
-        } finally {
             setIsLoading(false)
         }
     }

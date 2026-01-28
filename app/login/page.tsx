@@ -56,8 +56,8 @@ function LoginForm() {
             }
 
             if (result?.ok) {
-                router.push(callbackUrl)
-                router.refresh()
+                // Use window.location.href for full page reload to ensure session is established
+                window.location.href = callbackUrl
             }
         } catch (err) {
             setError("An error occurred during login")

@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Settings, Database, Mail, Shield, BarChart3, Users, FileText } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 export default async function SettingsPage() {
     const session = await auth()
 

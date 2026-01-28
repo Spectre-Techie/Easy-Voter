@@ -9,6 +9,8 @@ import { ArrowLeft, Mail, Calendar, Shield, FileText, Activity } from "lucide-re
 import { RoleChangeForm } from "@/components/admin/role-change-form"
 import { DeleteUserButton } from "@/components/admin/delete-user-button"
 
+export const dynamic = 'force-dynamic'
+
 export default async function UserDetailPage({
     params,
 }: {

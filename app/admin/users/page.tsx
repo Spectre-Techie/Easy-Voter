@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Search, Users, Shield, UserCheck, Calendar } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 type SearchParams = {
     role?: string
     search?: string

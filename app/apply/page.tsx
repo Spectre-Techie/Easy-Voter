@@ -86,11 +86,11 @@ export default function ApplyPage() {
             // Clear draft
             localStorage.removeItem("voterApplicationDraft")
 
-            router.push("/dashboard?application=success")
+            // Use window.location.href for full page reload
+            window.location.href = "/dashboard?application=success"
         } catch (error) {
             console.error("Submission error:", error)
             alert("Failed to submit application. Please try again.")
-        } finally {
             setIsSubmitting(false)
         }
     }

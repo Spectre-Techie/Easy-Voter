@@ -95,7 +95,7 @@ function ResetPasswordForm() {
 
             // Redirect to login after 3 seconds
             setTimeout(() => {
-                router.push("/login?reset=success")
+                window.location.href = "/login?reset=success"
             }, 3000)
         } catch (err) {
             setError(err instanceof Error ? err.message : "An error occurred")
