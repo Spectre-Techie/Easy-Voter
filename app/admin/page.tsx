@@ -119,20 +119,22 @@ export default async function AdminDashboard() {
                             recentApplications.map((application) => (
                                 <div
                                     key={application.id}
-                                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors gap-3"
                                 >
-                                    <div className="flex-1">
-                                        <h3 className="font-medium text-gray-900">
-                                            {application.surname} {application.firstName}
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="font-medium text-gray-900 truncate">
+                                            {application.surname} {application.firstName
+
+                                            }
                                         </h3>
-                                        <p className="text-sm text-gray-600">{application.user.email}</p>
+                                        <p className="text-sm text-gray-600 truncate">{application.user.email}</p>
                                         <p className="text-xs text-gray-500 mt-1">
                                             Ref: {application.applicationRef}
                                         </p>
                                     </div>
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-2 sm:gap-4">
                                         <span
-                                            className={`px-3 py-1 rounded-full text-xs font-medium ${application.status === "PENDING"
+                                            className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${application.status === "PENDING"
                                                 ? "bg-yellow-100 text-yellow-800"
                                                 : application.status === "APPROVED"
                                                     ? "bg-green-100 text-green-800"
@@ -142,7 +144,7 @@ export default async function AdminDashboard() {
                                             {application.status}
                                         </span>
                                         <Link href={`/admin/applications/${application.id}`}>
-                                            <Button size="sm">Review</Button>
+                                            <Button size="sm" className="whitespace-nowrap">Review</Button>
                                         </Link>
                                     </div>
                                 </div>

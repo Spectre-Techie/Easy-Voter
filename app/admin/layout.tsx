@@ -1,8 +1,8 @@
 import { auth, isAdmin } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
-import { LayoutDashboard, FileText, Settings, LogOut, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { LayoutDashboard, FileText, Settings, Users } from "lucide-react"
+import { AdminMobileNav } from "@/components/admin/admin-mobile-nav"
 import AdminLogoutButton from "@/components/admin/admin-logout-button"
 
 export const dynamic = 'force-dynamic'
@@ -27,16 +27,16 @@ export default async function AdminLayout({
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Sidebar */}
-            <div className="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200">
-                <div className="flex flex-col h-full">
+            {/* Desktop Sidebar - Hidden on mobile */}
+            <div className="hidden md:fixed md:inset-y-0 md:left-0 md:w-64 md:block">
+                <div className="flex flex-col h-full bg-white border-r border-gray-200">
                     {/* Logo */}
                     <div className="flex items-center h-16 px-6 border-b border-gray-200">
                         <h1 className="text-xl font-bold text-green-600">EasyVoter Admin</h1>
                     </div>
 
                     {/* Navigation */}
-                    <nav className="flex-1 px-4 py-6 space-y-1">
+                    <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
                         {navigation.map((item) => {
                             const Icon = item.icon
                             return (
@@ -63,9 +63,17 @@ export default async function AdminLayout({
                 </div>
             </div>
 
+            {/* Mobile Header */}
+            <div className="md:hidden sticky top-0 z-40 bg-white border-b border-gray-200">
+                <div className="flex items-center justify-between h-16 px-4">
+                    <h1 className="text-lg font-bold text-green-600">EasyVoter Admin</h1>
+                    <AdminMobileNav userEmail={session.user.email || ""} />
+                </div>
+            </div>
+
             {/* Main Content */}
-            <div className="pl-64">
-                <main className="p-8">
+            <div className="md:pl-64">
+                <main className="p-4 md:p-8">
                     {children}
                 </main>
             </div>
