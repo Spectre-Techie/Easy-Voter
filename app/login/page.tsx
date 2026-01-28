@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -21,7 +21,7 @@ import { AlertCircle, Loader2, CheckCircle2 } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { signIn } from "next-auth/react"
 
-export default function LoginPage() {
+function LoginForm() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
@@ -56,7 +56,6 @@ export default function LoginPage() {
             }
 
             if (result?.ok) {
-                // Redirect to callback URL or dashboard
                 router.push(callbackUrl)
                 router.refresh()
             }
@@ -179,5 +178,17 @@ export default function LoginPage() {
                 </CardFooter>
             </Card>
         </div>
+    )
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+        }>
+            <LoginForm />
+        </Suspense>
     )
 }

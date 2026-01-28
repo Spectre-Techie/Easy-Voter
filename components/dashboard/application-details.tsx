@@ -70,10 +70,6 @@ export function ApplicationDetails({ application }: ApplicationDetailsProps) {
                                 <p className="text-sm text-muted-foreground">Gender</p>
                                 <p className="font-medium">{application.gender}</p>
                             </div>
-                            <div>
-                                <p className="text-sm text-muted-foreground">Marital Status</p>
-                                <p className="font-medium">{application.maritalStatus}</p>
-                            </div>
                         </div>
                     </div>
 
@@ -111,8 +107,8 @@ export function ApplicationDetails({ application }: ApplicationDetailsProps) {
                                 <p className="font-medium">{application.lga}</p>
                             </div>
                             <div className="md:col-span-2">
-                                <p className="text-sm text-muted-foreground">Residential Address</p>
-                                <p className="font-medium">{application.residentialAddress}</p>
+                                <p className="text-sm text-muted-foreground">Street Address</p>
+                                <p className="font-medium">{application.streetAddress}</p>
                             </div>
                         </div>
                     </div>
@@ -137,11 +133,11 @@ export function ApplicationDetails({ application }: ApplicationDetailsProps) {
                                     </div>
                                 </div>
                             )}
-                            {application.idDocumentUrl && (
+                            {application.idPhotoUrl && (
                                 <div>
                                     <p className="text-sm text-muted-foreground mb-2">ID Document</p>
                                     <a
-                                        href={application.idDocumentUrl}
+                                        href={application.idPhotoUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-blue-600 hover:underline text-sm"

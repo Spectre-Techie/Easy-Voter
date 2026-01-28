@@ -450,7 +450,7 @@ export async function generateVoterCard(data: VoterCardData, applicationId: stri
         // Create PDF
         console.log("📄 Creating PDF...")
         const pdfBuffer = await renderToBuffer(
-            React.createElement(VoterCardDocument, { data, qrCodeDataUrl })
+            React.createElement(VoterCardDocument, { data, qrCodeDataUrl }) as any
         )
         console.log("✅ PDF created, size:", pdfBuffer.length, "bytes")
 
