@@ -13,10 +13,15 @@ interface TimelineEvent {
 }
 
 interface ApplicationTimelineProps {
-    application: VoterApplication
+    application: VoterApplication | null
 }
 
 export function ApplicationTimeline({ application }: ApplicationTimelineProps) {
+    // Handle null application (new users)
+    if (!application) {
+        return null
+    }
+
     const getTimelineEvents = (): TimelineEvent[] => {
         const events: TimelineEvent[] = [
             {

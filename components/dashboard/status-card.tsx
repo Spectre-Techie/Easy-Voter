@@ -18,10 +18,15 @@ import {
 } from "lucide-react"
 
 interface StatusCardProps {
-    application: VoterApplication
+    application: VoterApplication | null
 }
 
 export function StatusCard({ application }: StatusCardProps) {
+    // Handle null application (new users)
+    if (!application) {
+        return null
+    }
+
     const status = application.status
 
     // PENDING Status
